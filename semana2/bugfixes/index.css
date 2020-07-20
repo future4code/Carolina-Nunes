@@ -75,6 +75,7 @@ div>p:first-child {
     background-color: #2274a5;
     color: white;
     padding: 100px 0;
+    list-style-position: inside;
 }
 
 #container-de-descricao>ol {
