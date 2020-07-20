@@ -19,6 +19,10 @@ h2 {
 input {
     height: 20px;
     width: 500px;
+    border-bottom: solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 button:focus {
@@ -114,7 +118,7 @@ td button:hover {
 td button:active {
     background-color: #3399ff;
     color: white;
-
+}
 .container-do-search {
     margin-top: 20px;
     height: 100px;
