@@ -43,15 +43,27 @@ div>p:first-child {
     width: 250px;
     height: 40px;
     border-radius: 5px;
+    border-color: #ffaf43;
     font-size: 20px;
     color: white;
     display: block;
     margin: 20px auto;
     font-family: 'Roboto';
+    text-decoration: none;
+    outline: 0px;
+    outline-offset: 0px;
 }
 
 .botao-amarelo:hover {
     background-color: #c44f00;
+    border: none;
+    outline: 0px;
+    outline-offset: 0px;
+}
+.botao-amarelo:active {
+    border: none;
+    outline: 0px;
+    outline-offset: 0px;
 }
 
 .container {
@@ -120,13 +132,19 @@ td button {
     border-radius: 5px;
     color: black;
     font-family: 'Roboto';
+    outline: 0px;
+    outline-offset: 0px;
 }
 td button:hover {
     background-color: #995700;
+    outline: 0px;
+    outline-offset: 0px;
 }
 td button:active {
     background-color: #3399ff;
     color: white;
+    outline: 0px;
+    outline-offset: 0px;
 }
 .container-do-search {
     margin-top: 20px;
@@ -146,11 +164,17 @@ td button:active {
     color: black;
     font-family: 'Roboto';
     margin-left: 45%;
+    outline: 0px;
+    outline-offset: 0px;
 }
 #back-button:hover {
     background-color: grey;
+    outline: 0px;
+    outline-offset: 0px;
 }
 #back-button:active {
     background-color: orangered;
     color: white;
+    outline: 0px;
+    outline-offset: 0px;
 }
