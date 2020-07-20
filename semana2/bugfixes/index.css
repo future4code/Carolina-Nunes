@@ -59,11 +59,13 @@ div>p:first-child {
     border: none;
     outline: 0px;
     outline-offset: 0px;
+    text-decoration: none;
 }
 .botao-amarelo:active {
     border: none;
     outline: 0px;
     outline-offset: 0px;
+    text-decoration: none;
 }
 
 .container {
@@ -74,8 +76,11 @@ div>p:first-child {
 
 .icone {
     width: 18px;
+    color: red;
 }
-
+.icone:hover {
+    opacity: 50%;
+}
 
 /** 
   *
