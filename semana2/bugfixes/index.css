@@ -1,0 +1,185 @@
+/** 
+  *
+  *  ESTILOS GERAIS 
+  *
+  **/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    background-color: #fe7e02;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    text-align: center;
+    font-family: 'Roboto';
+}
+
+input {
+    height: 20px;
+    width: 500px;
+    border-bottom: solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+button:focus {
+    color: white;
+}
+
+img {
+    width: 100px;
+}
+
+div>p:first-child {
+    display: inline;
+}
+
+.botao-amarelo {
+    background-color: #ffaf43;
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    border-color: #ffaf43;
+    font-size: 20px;
+    color: white;
+    display: block;
+    margin: 20px auto;
+    font-family: 'Roboto';
+    text-decoration: none;
+    outline: 0px;
+    outline-offset: 0px;
+}
+
+.botao-amarelo:hover {
+    background-color: #c44f00;
+    border: none;
+    outline: 0px;
+    outline-offset: 0px;
+    text-decoration: none;
+}
+.botao-amarelo:active {
+    border: none;
+    outline: 0px;
+    outline-offset: 0px;
+    text-decoration: none;
+}
+
+.container {
+    height: 300px;
+    text-align: center;
+    font-family: 'Roboto';    
+}
+
+.icone {
+    width: 18px;
+    color: red;
+}
+.icone:hover {
+    opacity: 50%;
+}
+
+/** 
+  *
+  *  ESTILOS HOME 
+  *
+  **/
+
+#container-de-descricao {
+    background-color: #2274a5;
+    color: white;
+    padding: 100px 0;
+    list-style-position: inside;
+}
+
+#container-de-descricao>ol {
+    padding: 15px 0px;
+}
+
+#container-para-comprar {
+    background-color: #e7eb90;
+}
+
+#container-para-comprar>p {
+    color: #c44f00;
+    padding: 100px 0;
+    font-size: 60px;
+}
+
+
+/**
+  *
+  *  ESTILOS COMPRAR 
+  *
+  **/
+
+div:nth-child(2),
+div:last-child {
+    text-align: center;
+}
+
+table {
+    width: 60%;
+    text-align: center;
+    font-family: 'Roboto';
+    align-items: center;
+    margin-left: 220px;
+    margin-bottom: 50px;
+}
+
+td button {
+    background-color: #fadf63;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    color: black;
+    font-family: 'Roboto';
+    outline: 0px;
+    outline-offset: 0px;
+}
+td button:hover {
+    background-color: #995700;
+    outline: 0px;
+    outline-offset: 0px;
+}
+td button:active {
+    background-color: #3399ff;
+    color: white;
+    outline: 0px;
+    outline-offset: 0px;
+}
+.container-do-search {
+    margin-top: 20px;
+    height: 100px;
+    font-family: 'Roboto';
+}
+#imgsite {
+    width: 50px;
+}
+#back-button {
+    background-color: white;
+    width: 100px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 10px;
+    color: black;
+    font-family: 'Roboto';
+    margin-left: 45%;
+    outline: 0px;
+    outline-offset: 0px;
+}
+#back-button:hover {
+    background-color: grey;
+    outline: 0px;
+    outline-offset: 0px;
+}
+#back-button:active {
+    background-color: orangered;
+    color: white;
+    outline: 0px;
+    outline-offset: 0px;
+}
