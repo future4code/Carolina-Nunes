@@ -36,30 +36,40 @@ header>input {
     height: 100%;
     display: grid;
     grid-template-columns: auto auto;
-    grid-gap: 10px;
     background-color: #0074D9;
 }
 
 .grid-item {
-    background-color: coral;
-    border: 1px solid grey;
+    background-color: white;
     padding: 0;
     font-size: 100%;
     text-align: center;
-    color: ivory;
+    color: #808080;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .videopage {
     width: 100%;
-    height: 75vh;
+    height: auto;
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
     justify-items: center;
     background-color: white;
 }
-video {
-    width: 50%;
+
+figure {
+    width: 80%;
+    border: 1px solid lightgray;
+    padding: 0;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 8%;
+    justify-content: center;
+    align-content: center;
+}
+
+figcaption {
+    padding: 1px;
 }
 
 .videoa {
@@ -69,7 +79,7 @@ video {
 footer {
     width: 100%;
     height: 5vh;
-    position: fixed;
+    position: relative;
     bottom: 0;
     text-align: center;
     font-size: 100%;
