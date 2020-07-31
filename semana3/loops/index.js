@@ -49,10 +49,40 @@ for(let i = 0; i < 12; i++) {
 } */
 
 //c. 
-const novoArray =[]
+const numeros = [80, 30, 130, 40, 60, 21, 70, 120, 90, 103, 110, 55]
+
+
+for (let i = 0; i < numeros.length; i++) {
+    if (i % 2 === 0) {
+        console.log
+    }
+}
+
+//     const novoArray = array[i%2]
+//     console.log(novoArray)
+// }
+
 
 //d. 
+// const novoArray =[]
 
 
 //e. 
+// let array = [80, 30, 130, 40, 60, 21, 70, 120, 90, 103, 110, 55]
 
+// let valorMaximo = 0
+// let valorMinimo = 140
+
+// for(let i = 0; i < array.length; i++) {
+//     if (array[i] > valorMaximo) {
+//         valorMaximo = array[i]
+        
+//     }
+// }
+
+// for(let i = 0; i < array.length; i++) {
+//     if (array[i] < valorMinimo) {
+//         valorMinimo = array[i]
+//     }
+// }
+// console.log("O maior número é " + valorMaximo + " e o menor é " + valorMinimo)
