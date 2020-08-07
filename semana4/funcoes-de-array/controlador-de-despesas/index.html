@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Controlador de Despesas</title>
+</head>
+<body>
+    <section id="controlador-despesas">
+        <h1>Controlador de Despesas</h1>
+        <h3>Cadastrar Despesas</h3>
+        <article>
+            <label for="valor-despesa">Valor:</label>
+            <input type="number" id="valor-despesa">
+
+            <label for="tipo-despesa">Tipo de despesa:</label>
+                <select id="tipo-despesa" name="tipo-despesa">
+                    <option value=""></option>
+                    <option value="casa">Casa</option>
+                    <option value="restaurantes">Restaurantes</option>
+                    <option value="viagens">Viagens</option>
+                </select>
+
+            <label for="descricao-despesa">Descrição:</label>
+            <input type="text" id="descricao-despesa">
+        </article>
+        <button id="botao1" onclick="addDados()">Cadastrar Despesa</button>
+    </section>
+
+    <section id="detalhe-despesas">
+        <h1>Despesas Detalhadas</h1>
+        <h3>Descrição das despesas</h3>
+        <article>
+            <label for="tipo-despesa2">Tipo de despesa:</label>
+                <select id="tipo-despesa2" name="tipo-despesa">
+                    <option value=""></option>
+                    <option value="casa">Casa</option>
+                    <option value="restaurantes">Restaurantes</option>
+                    <option value="viagens">Viagens</option>
+                </select>
+            <label for="valor-minimo">Valor mínimo:</label>
+            <input type="number" id="valor-minimo" min="1" max="50000">
+
+            <label for="valor-maximo">Valor máximo:</label>
+            <input type="number" id="valor-maximo" min="1" max="50000">
+        </article>
+        <button id="botao2" onclick="filtrarDespesas()">Filtrar</button>
+        <button>Limpar filtros</button>
+    </section>
+
+    <section id="extrato-despesas">
+        <h1>Extrato de Despesas</h1>
+        <h3>Valor total:</h3>
+    </section>
+</body>
+</html>
