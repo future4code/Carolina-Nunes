@@ -84,38 +84,78 @@ e. true */
 //     console.log("O triângulo é escaleno")
 // }
 
-// EXERCÍCIO 5 - letra B errada
+// EXERCÍCIO 5 
 
-// a.
-const num1 = 15
-const num2 = 30
+// // a.
+// const num1 = 15
+// const num2 = 30
 
-if (num1 > num2) {
-    console.log(`O maior é ${num1}`)
-} else {
-    console.log(`O maior é ${num2}`)
+// if (num1 > num2) {
+//     console.log(`O maior é ${num1}`)
+// } else {
+//     console.log(`O maior é ${num2}`)
+// }
+
+// // b. 
+// const condicao1 = (num1 % num2 > 0)
+// const condicao2 = (num2 % num1 > 0)
+
+// if (condicao1 === true) {
+//     console.log(`${num1} é divisível por ${num2}`)
+// } else if (condicao1 === false){
+//     console.log(`${num1} não é divisível por ${num2}`)
+// } else if (condicao2 === true) {
+//     console.log(`${num2} é divisível por ${num1}`)
+// } else (condicao2 === false)
+//     console.log(`${num2} não é divisível por ${num1}`)
+
+
+// // c.
+// const resultado1 = num1 - num2
+// const resultado2 = num2 - num1
+
+// if (resultado1 > 0){
+//     console.log(`A diferença entre eles é ${resultado1}`)
+// } else (resultado2 > 0) 
+//     console.log(`A diferença entre eles é ${resultado2}`)
+
+// EXERCÍCIOS DE FUNÇÕES
+// EXERCÍCIO 1 - INCOMPLETO
+
+let numeros = [34, 13, 45, 65, 33, 23, 56, 98]
+
+let numero1 = Infinity 
+let numero2 = 0 
+
+for(let numero of numeros){
+    if (numero < numero1){
+        numero1 = numero
+    }
+
+    if (numero > numero2){
+        numero2 = numero
+    }
 }
-
-// b. 
-const condicao1 = (num1 % num2 > 0)
-const condicao2 = (num2 % num1 > 0)
-
-if (condicao1 === true) {
-    console.log(`${num1} é divisível por ${num2}`)
-} else if (condicao1 === false){
-    console.log(`${num1} não é divisível por ${num2}`)
-} else if (condicao2 === true) {
-    console.log(`${num2} é divisível por ${num1}`)
-} else (condicao2 === false)
-    console.log(`${num2} não é divisível por ${num1}`)
+console.log(numero1)
+console.log(numero2)
 
 
-// c.
-const resultado1 = num1 - num2
-const resultado2 = num2 - num1
+// EXERCÍCIO 2
+// let alerta = (mensagem) => {
+//     return mensagem 
+// }
+// const resultado = alerta(alert("Hello Future4"))
+// console.log(resultado)
 
-if (resultado1 > 0){
-    console.log(`A diferença entre eles é ${resultado1}`)
-} else (resultado2 > 0) 
-    console.log(`A diferença entre eles é ${resultado2}`)
+// EXERCÍCIOS DE OBJETO
+// EXERCÍCIO 1
+
+/* Um objeto é um tipo especial de variável que contém algumas propriedades. São como uma coleção de dados e/ou funcionalidades relacionadas. Usam índices nomeados.
+Um Array é um objeto com um construtor único e são usados para armazenar vários valores em uma única variável. Usam índices numerados.
+Usamos objetos quando queremos que os nomes dos elementos sejam strings.
+Usamos arrays quando queremos que os  nomes dos elementos sejam números.
+*/
+
+// EXERCÍCIO 2
+
 
