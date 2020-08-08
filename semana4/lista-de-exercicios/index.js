@@ -129,15 +129,17 @@ e. true */
 
 // for(let numero of numeros){
 //     if (numero < numero1){
-//         numero1 = numero
-//     }
-
-//     if (numero > numero2){
-//         numero2 = numero
+//         numero1 = numeroMin
 //     }
 // }
-// console.log(numero1)
-// console.log(numero2)
+// for(let numero of numeros) {
+//     if (numero > numero2) {
+//         numero2 = numeroMax
+//     }
+// }
+
+// // console.log(numero1)
+// // console.log(numero2)
 
 
 // EXERCÍCIO 2
@@ -190,23 +192,91 @@ Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 // }
 // console.log(pessoa)
 
-// function anonimizarPessoa(nomeDoElemento, valorDoElemento) {
 
-// }
+//  const anonimizarPessoa = () => {let pessoaAnonima = {...pessoa, nome: "ANONIMO"}}
+//  console.log(pessoaAnonima)
+
+// const anonimizarPessoa = () => { const pessoaAnonima = {...pessoa, nome: 'ANÔNIMO'}
 
 // EXERCÍCIOS DE FUNÇÕES DE ARRAY
 // EXERCÍCIO 1
 
-let pessoas = [
-    {nome: "Pedro", idade: 20},
-    {nome: "João", idade: 10},
-    {nome: "Paula", idade: 12},
-    {nome: "Artur", idade: 89}
-]
-const adultos = pessoas.filter(adulto => adulto.idade > 18)
-const criancas = pessoas.filter(criancas => criancas.idade < 18)
+// let pessoas = [
+//     {nome: "Pedro", idade: 20},
+//     {nome: "João", idade: 10},
+//     {nome: "Paula", idade: 12},
+//     {nome: "Artur", idade: 89}
+// ]
+// const adultos = pessoas.filter(adulto => adulto.idade > 18)
+// const criancas = pessoas.filter(criancas => criancas.idade < 18)
 
-console.log(pessoas)
-console.log(adultos)
-console.log(criancas)
+// console.log(pessoas)
+// console.log(adultos)
+// console.log(criancas)
+
+// EXERCÍCIO 2 - INCOMPLETO
+// const array = [1, 2, 3, 4, 5, 6]
+
+// const arrayMultiplicado = 
+
+// EXERCÍCIO 3
+// const pessoas = [
+// 	{ nome: "Paula", idade: 12, altura: 1.8},
+// 	{ nome: "João", idade: 20, altura: 1.3},
+// 	{ nome: "Pedro", idade: 15, altura: 1.9},
+// 	{ nome: "Luciano", idade: 22, altura: 1.8},
+// 	{ nome: "Artur", idade: 10, altura: 1.2},
+// 	{ nome: "Soter", idade: 70, altura: 1.9}
+// ]
+// const podeIr = pessoas.filter(pode => pode.idade > 14 && pode.idade < 70 && pode.altura > 1.5)
+// console.log(podeIr)
+
+// const naoPodeIr = pessoas.filter(naopode => naopode.idade < 14 || naopode.idade >= 70 || naopode.altura < 1.5)
+// console.log(naoPodeIr)
+
+
+// EXERCÍCIO 4 - INCOMPLETO
+// const consultas = [
+// 	{ nome: "João", genero: "masculino", cancelada: true, dataDaConsulta: "01/10/2019" },
+// 	{ nome: "Pedro", genero: "masculino", cancelada: false, dataDaConsulta: "02/10/2019" },
+// 	{ nome: "Paula", genero: "feminino", cancelada: true, dataDaConsulta: "03/11/2019" },
+// 	{ nome: "Márcia", genero: "feminino", cancelada: false, dataDaConsulta: "04/11/2019" }
+// ]
+// const emailEnviado = consultas.map((consultas) => {
+//     let introducao = "Sr."
+//     let lembranca = "lembrá-lo"
+
+//     const msgConfirmacao = `Olá, ${introducao} ${consultas.nome}. Estamos enviando esta mensagem para ${lembranca} da sua consulta no dia ${consultas.dataDaConsulta}. Por favor, confirme o recebimento deste e-mail.`
+//     const msgCancelamento = `Olá, ${introducao} ${consultas.nome}. Infelizmente, sua consulta marcada para o dia ${consultas.dataDaConsulta} foi cancelada. Se quiser, pode entrar em contato conosco para remarcá-la`
+
+//     if(consultas.cancelada){
+//         if(consultas.genero === "feminino") {
+//             introducao = "Sra."
+//             lembranca = "lembrá-la"
+//             return msgCancelamento
+//         } else {
+//             return msgCancelamento
+//         }
+//     }
+//     if(consultas.cancelada === false) {
+//         if(consultas.genero === "feminino") {
+//             introducao = "Sra."
+//             lembranca = "lembrá-la"
+//             return msgConfirmacao
+//         } else {
+//             return msgConfirmacao
+//         }
+//     }
+// })
+// console.log(emailEnviado)
+
+// EXERCÍCIO 5 - INCOMPLETO
+// const contas = [
+// 	{ cliente: "João", saldoTotal: 1000, compras: [100, 200, 300] },
+// 	{ cliente: "Paula", saldoTotal: 7500, compras: [200, 1040] },
+// 	{ cliente: "Pedro", saldoTotal: 10000, compras: [5140, 6100, 100, 2000] },
+// 	{ cliente: "Luciano", saldoTotal: 100, compras: [100, 200, 1700] },
+// 	{ cliente: "Artur", saldoTotal: 1800, compras: [200, 300] },
+// 	{ cliente: "Soter", saldoTotal: 1200, compras: [] }
+// ]
 
