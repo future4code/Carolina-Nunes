@@ -122,22 +122,22 @@ e. true */
 // EXERCÍCIOS DE FUNÇÕES
 // EXERCÍCIO 1 - INCOMPLETO
 
-let numeros = [34, 13, 45, 65, 33, 23, 56, 98]
+// let numeros = [34, 13, 45, 65, 33, 23, 56, 98]
 
-let numero1 = Infinity 
-let numero2 = 0 
+// let numero1 = Infinity 
+// let numero2 = 0 
 
-for(let numero of numeros){
-    if (numero < numero1){
-        numero1 = numero
-    }
+// for(let numero of numeros){
+//     if (numero < numero1){
+//         numero1 = numero
+//     }
 
-    if (numero > numero2){
-        numero2 = numero
-    }
-}
-console.log(numero1)
-console.log(numero2)
+//     if (numero > numero2){
+//         numero2 = numero
+//     }
+// }
+// console.log(numero1)
+// console.log(numero2)
 
 
 // EXERCÍCIO 2
@@ -156,6 +156,57 @@ Usamos objetos quando queremos que os nomes dos elementos sejam strings.
 Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 */
 
-// EXERCÍCIO 2
+// EXERCÍCIO 2 - INCOMPLETO
 
+// function criaRetangulo(lado1, lado2){
+//     const retangulo = {
+//         largura: lado1,
+//         altura: lado2,
+//         perimetro: 2*(lado1+lado2),
+//         area: lado1*lado2,
+//     }
+//     return criaRetangulo
+// }
+// criaRetangulo(2, 4)
+// console.log(criaRetangulo)
+
+// EXERCÍCIO 3
+
+// const filme = {
+//     titulo: "Pulp Fiction",
+//     ano: 1994,
+//     diretor: "Quentin Tarantino",
+//     atores: ["John Travolta", "Uma Thurman", "Samuel L. Jackson", "Rosana Arquette"]
+// }
+// console.log(`Venha assistir ao filme ${filme.titulo}, de ${filme.ano}, dirigido por ${filme.diretor} e estrelado por ${filme.atores}.`)
+
+// EXERCÍCIO 4 - INCOMPLETO
+
+// const pessoa = {
+//     nome: "João",
+//     idade: 4,
+//     email: "joao@gmail.com",
+//     endereco: "Avenida Sabiá"
+// }
+// console.log(pessoa)
+
+// function anonimizarPessoa(nomeDoElemento, valorDoElemento) {
+
+// }
+
+// EXERCÍCIOS DE FUNÇÕES DE ARRAY
+// EXERCÍCIO 1
+
+let pessoas = [
+    {nome: "Pedro", idade: 20},
+    {nome: "João", idade: 10},
+    {nome: "Paula", idade: 12},
+    {nome: "Artur", idade: 89}
+]
+const adultos = pessoas.filter(adulto => adulto.idade > 18)
+const criancas = pessoas.filter(criancas => criancas.idade < 18)
+
+console.log(pessoas)
+console.log(adultos)
+console.log(criancas)
 
