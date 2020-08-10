@@ -58,23 +58,11 @@ e. true */
 // }
 // O código não funciona inicialmente porque está incompleto, faltava o incremento.
 
-// EXERCÍCIO 4 - INCOMPLETO
+// EXERCÍCIO 4 - ===================INCORRETO===================
 
-// const ladoA = true
-// const ladoB = true
-// const ladoC = true
-
-// let resultado = ladoA && ladoB && ladoC
-// console.log("O triângulo é equilátero", resultado)
-
-// resultado = bool1 && bool2 && bool3
-// console.log("b. ", resultado)
-
-// resultado = !resultado && (bool1 || bool1)
-// console.log("c. ", resultado)
-
-// console.log("e. ", typeof resultado)
-
+// let ladoA = 2
+// let ladoB = 2
+// let ladoC = 5
 
 // if (ladoA === ladoB === ladoC) {
 //     console.log("O triângulo é equilátero")
@@ -83,6 +71,7 @@ e. true */
 // } else {
 //     console.log("O triângulo é escaleno")
 // }
+
 
 // EXERCÍCIO 5 
 
@@ -120,26 +109,69 @@ e. true */
 //     console.log(`A diferença entre eles é ${resultado2}`)
 
 // EXERCÍCIOS DE FUNÇÕES
-// EXERCÍCIO 1 - INCOMPLETO
+// EXERCÍCIO 1 
 
-// let numeros = [34, 13, 45, 65, 33, 23, 56, 98]
+// let arrayNumeros = [34, 13, 45, 65, 33, 23, 56, 98]
+// let novoArrayNumerosMaior =[]
+// let novoArrayNumerosMenor = []
+// let maiorNum = 0
+// let menorNum = Infinity
 
-// let numero1 = Infinity 
-// let numero2 = 0 
-
-// for(let numero of numeros){
-//     if (numero < numero1){
-//         numero1 = numeroMin
+// const defineMaiorNum = (array, funcao) => {
+//     for(let numero of array) {
+//         if (numero > maiorNum) {
+//             maiorNum = numero
+//         }
 //     }
+//     console.log(`O array original é ${array}`)
+//     console.log(`O maior número é ${maiorNum}`)
+//     funcao(array, maiorNum)
 // }
-// for(let numero of numeros) {
-//     if (numero > numero2) {
-//         numero2 = numeroMax
+// const arraySemMaiorNum = (array, maiorNum) => {
+//     let segMaior = 0
+//     for (let numero of array) {
+//         if (numero !== maiorNum) {
+//             novoArrayNumerosMaior.push(numero)
+//         }
 //     }
+//     console.log(`O novo array é ${novoArrayNumerosMaior}`)
+//     for(let numero of novoArrayNumerosMaior) {
+//         if (numero > segMaior) {
+//             segMaior = numero
+//         }
+//     }
+//     console.log(`O segundo maior número do array original é ${segMaior}`)
+//     return segMaior
 // }
+// defineMaiorNum(arrayNumeros, arraySemMaiorNum)
 
-// // console.log(numero1)
-// // console.log(numero2)
+// const defineMenorNum = (array, funcao) => {
+//     for(let numero of array) {
+//         if (numero < menorNum) {
+//             menorNum = numero
+//         }
+//     }
+//     console.log(`O array original é ${array}`)
+//     console.log(`O menor número é ${menorNum}`)
+//     funcao(array, menorNum)
+// }
+// const arraySemMenorNum = (array, menorNum) => {
+//     let segMenor = 0
+//     for (let numero of array) {
+//         if (numero !== menorNum) {
+//             novoArrayNumerosMenor.push(numero)
+//         }
+//     }
+//     console.log(`O novo array é ${novoArrayNumerosMenor}`)
+//     for(let numero of novoArrayNumerosMenor) {
+//         if (numero < segMenor) {
+//             segMenor = numero
+//         }
+//     }
+//     console.log(`O segundo menor número do array original é ${segMenor}`)
+//     return segMenor
+// }
+// defineMenorNum(arrayNumeros, arraySemMenorNum)
 
 
 // EXERCÍCIO 2
@@ -158,16 +190,17 @@ Usamos objetos quando queremos que os nomes dos elementos sejam strings.
 Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 */
 
-// EXERCÍCIO 2 - INCOMPLETO
+// EXERCÍCIO 2 - ===================INCORRETO===================
 
 // function criaRetangulo(lado1, lado2){
+//     lado1 = 0
+//     lado2 = 0
 //     const retangulo = {
 //         largura: lado1,
 //         altura: lado2,
 //         perimetro: 2*(lado1+lado2),
 //         area: lado1*lado2,
 //     }
-//     return criaRetangulo
 // }
 // criaRetangulo(2, 4)
 // console.log(criaRetangulo)
@@ -182,7 +215,7 @@ Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 // }
 // console.log(`Venha assistir ao filme ${filme.titulo}, de ${filme.ano}, dirigido por ${filme.diretor} e estrelado por ${filme.atores}.`)
 
-// EXERCÍCIO 4 - INCOMPLETO
+// EXERCÍCIO 4 - ===================INCORRETO===================
 
 // const pessoa = {
 //     nome: "João",
@@ -192,11 +225,11 @@ Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 // }
 // console.log(pessoa)
 
-
-//  const anonimizarPessoa = () => {let pessoaAnonima = {...pessoa, nome: "ANONIMO"}}
-//  console.log(pessoaAnonima)
-
-// const anonimizarPessoa = () => { const pessoaAnonima = {...pessoa, nome: 'ANÔNIMO'}
+// function anonimizarPessoa(){
+//     let anonimo = pessoa.map((name) => ({...name, nome: "ANONIMO"}))
+//     return anonimizarPessoa
+// }
+// console.log(anonimo)
 
 // EXERCÍCIOS DE FUNÇÕES DE ARRAY
 // EXERCÍCIO 1
@@ -214,10 +247,15 @@ Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 // console.log(adultos)
 // console.log(criancas)
 
-// EXERCÍCIO 2 - INCOMPLETO
-// const array = [1, 2, 3, 4, 5, 6]
+// EXERCÍCIO 2 - ===================INCORRETO===================
+// let arrayNum = [1, 2, 3, 4, 5, 6]
+ 
+// const multiplicacao = (multiplicado, index, array) => {
+//     return (arrayNum[0]*2)
+// }
+// const arrayMultiplicado = arrayNum.map(multiplicacao)
+// console.log(arrayMultiplicado)
 
-// const arrayMultiplicado = 
 
 // EXERCÍCIO 3
 // const pessoas = [
@@ -235,7 +273,7 @@ Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 // console.log(naoPodeIr)
 
 
-// EXERCÍCIO 4 - INCOMPLETO
+// EXERCÍCIO 4 - ===================INCORRETO===================
 // const consultas = [
 // 	{ nome: "João", genero: "masculino", cancelada: true, dataDaConsulta: "01/10/2019" },
 // 	{ nome: "Pedro", genero: "masculino", cancelada: false, dataDaConsulta: "02/10/2019" },
@@ -246,31 +284,28 @@ Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 //     let introducao = "Sr."
 //     let lembranca = "lembrá-lo"
 
-//     const msgConfirmacao = `Olá, ${introducao} ${consultas.nome}. Estamos enviando esta mensagem para ${lembranca} da sua consulta no dia ${consultas.dataDaConsulta}. Por favor, confirme o recebimento deste e-mail.`
-//     const msgCancelamento = `Olá, ${introducao} ${consultas.nome}. Infelizmente, sua consulta marcada para o dia ${consultas.dataDaConsulta} foi cancelada. Se quiser, pode entrar em contato conosco para remarcá-la`
-
 //     if(consultas.cancelada){
+//         const msgCancelamento = `Olá, ${introducao} ${consultas.nome}. Infelizmente, sua consulta marcada para o dia ${consultas.dataDaConsulta} foi cancelada. Se quiser, pode entrar em contato conosco para remarcá-la`
 //         if(consultas.genero === "feminino") {
 //             introducao = "Sra."
 //             lembranca = "lembrá-la"
-//             return msgCancelamento
 //         } else {
-//             return msgCancelamento
 //         }
+//         return msgCancelamento
 //     }
 //     if(consultas.cancelada === false) {
+//         const msgConfirmacao = `Olá, ${introducao} ${consultas.nome}. Estamos enviando esta mensagem para ${lembranca} da sua consulta no dia ${consultas.dataDaConsulta}. Por favor, confirme o recebimento deste e-mail.`
 //         if(consultas.genero === "feminino") {
 //             introducao = "Sra."
 //             lembranca = "lembrá-la"
-//             return msgConfirmacao
 //         } else {
-//             return msgConfirmacao
 //         }
+//         return msgConfirmacao
 //     }
 // })
 // console.log(emailEnviado)
 
-// EXERCÍCIO 5 - INCOMPLETO
+// EXERCÍCIO 5 - ===================INCORRETO===================
 // const contas = [
 // 	{ cliente: "João", saldoTotal: 1000, compras: [100, 200, 300] },
 // 	{ cliente: "Paula", saldoTotal: 7500, compras: [200, 1040] },
@@ -279,4 +314,7 @@ Usamos arrays quando queremos que os  nomes dos elementos sejam números.
 // 	{ cliente: "Artur", saldoTotal: 1800, compras: [200, 300] },
 // 	{ cliente: "Soter", saldoTotal: 1200, compras: [] }
 // ]
+// console.log(contas)
 
+// const saldoAtualizado = contas.forEach(saldo => saldo.saldoTotal - saldo.compras)
+// console.log(saldoAtualizado)
