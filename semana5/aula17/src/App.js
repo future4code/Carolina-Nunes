@@ -14,7 +14,6 @@ function App() {
       <div className="tela-inteira">
         <header>
             <h1>LabTube</h1>
-            <img src="/img/labetube.png" alt="" />
             <input type="text" placeholder="Pesquisar" id="campoDeBusca" />
             <img className="icone" src="https://static.thenounproject.com/png/105498-200.png" class="icone" alt="Buscar" />
         </header>

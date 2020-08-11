@@ -1,0 +1,29 @@
+.cursoscard-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #0E76A8;
+    padding: 20px 10px;
+    margin-bottom: 10px;
+    height: 100px;
+    width: 480px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #2b485e;
+    background-color: #f3f6f8;
+}
+
+.cursoscard-container > img {
+    width: 70px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.cursoscard-container h4 {
+    margin-bottom: 15px;
+    color: #2b485e;
+}
+
+.cursoscard-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+}
