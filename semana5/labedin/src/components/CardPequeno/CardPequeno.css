@@ -1,0 +1,29 @@
+.peqcard-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #0E76A8;
+    padding: 40px 40px;
+    margin-bottom: 20px;
+    height: 100px;
+    width: 480px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #f3f6f8;
+    color: #2b485e;
+}
+
+.peqcard-container > img {
+    width: 70px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.peqcard-container h3 {
+    margin-bottom: 15px;
+    color: #2b485e;
+}
+
+.peqcard-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+}
