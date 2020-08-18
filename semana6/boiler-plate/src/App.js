@@ -35,26 +35,15 @@ class App extends React.Component {
     }
 
   componentDidUpdate() {
-    const objetoTarefa = {
-      id: this.state.id,
-      texto: this.state.texto,
-      completa: this.state.completa
-    };
-    localStorage.setItem("tarefa", JSON.stringify(objetoTarefa))
-    console.log("componentDidUpdate")
+    localStorage.setItem("tarefa", JSON.stringify(this.state.tarefas))
+    // console.log("componentDidUpdate")
   }; 
 
   componentDidMount() {
     const tarefaString = localStorage.getItem("tarefa");
     const tarefaObjeto = JSON.parse(tarefaString);
-    if (tarefaObjeto) {
-      this.setState({
-        id: tarefaObjeto.id,
-        texto: tarefaObjeto.texto,
-        completa: tarefaObjeto.completa
-      });
-      console.log("componentWillUnmount")
-    }
+
+    this.setState({tarefas: tarefaObjeto})
 
   };
 
