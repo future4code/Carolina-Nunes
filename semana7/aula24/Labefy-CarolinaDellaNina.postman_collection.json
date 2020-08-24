@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "0875323d-2e5d-402b-87b2-13fd50add564",
+		"name": "Labefy-CarolinaDellaNina",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criar Playlists",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Carolina-DellaNina-Jackson",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alegria, alegria\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists",
+					"protocol": "https",
+					"host": [
+						"us-central1-labenu-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"labefy",
+						"playlists"
+					]
+				},
+				"description": "Criando playlist "
+			},
+			"response": []
+		},
+		{
+			"name": "Verificar playlists",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Carolina-DellaNina-Jackson",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists",
+					"protocol": "https",
+					"host": [
+						"us-central1-labenu-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"labefy",
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionando música a uma playlist existente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Carolina-DellaNina-Jackson",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Oração ao tempo\", \n    \"artist\": \"Caetano Veloso\",\n    \"url\": \"https://open.spotify.com/album/3PlAbFQa9MEymxTgQC51wv?highlight=spotify:track:2dyO1eHqaTjNCRBEK7eOlo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/:playlistId/tracks",
+					"protocol": "https",
+					"host": [
+						"us-central1-labenu-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"labefy",
+						"playlists",
+						":playlistId",
+						"tracks"
+					],
+					"variable": [
+						{
+							"key": "playlistId",
+							"value": "39b85d47-8f7f-45e7-879e-928ae212254a"
+						}
+					]
+				},
+				"description": "Essa requisição adiciona uma música a uma playlist existente"
+			},
+			"response": []
+		},
+		{
+			"name": "Verificar músicas em uma playlist",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Carolina-DellaNina-Jackson",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/:playlistId/tracks",
+					"protocol": "https",
+					"host": [
+						"us-central1-labenu-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"labefy",
+						"playlists",
+						":playlistId",
+						"tracks"
+					],
+					"variable": [
+						{
+							"key": "playlistId",
+							"value": "39783290-8581-4d55-b621-081373d669f6"
+						}
+					]
+				},
+				"description": "Esta requisição permite verificar quais músicas estão em uma determinada playlist"
+			},
+			"response": []
+		},
+		{
+			"name": "Procurar Playlist",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Carolina-DellaNina-Jackson",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/search?name=yellow",
+					"protocol": "https",
+					"host": [
+						"us-central1-labenu-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"labefy",
+						"playlists",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "yellow"
+						}
+					]
+				},
+				"description": "Essa requisição parmite pesquisar por uma playlist, usando o nome dela ou parte dele."
+			},
+			"response": []
+		},
+		{
+			"name": "Remover música da playlist",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Carolina-DellaNina-Jackson",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/:playlistId/tracks/:trackId",
+					"protocol": "https",
+					"host": [
+						"us-central1-labenu-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"labefy",
+						"playlists",
+						":playlistId",
+						"tracks",
+						":trackId"
+					],
+					"variable": [
+						{
+							"key": "playlistId",
+							"value": "76dd18a5-176d-4005-abf9-210b302faee7"
+						},
+						{
+							"key": "trackId",
+							"value": "3067aa18-6dc0-4b18-b154-0c6d10722a17"
+						}
+					]
+				},
+				"description": "Esta requisição serve para deletar alguma música de alguma playlist"
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar playlist",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Carolina-DellaNina-Jackson",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/:playlistId",
+					"protocol": "https",
+					"host": [
+						"us-central1-labenu-apis",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"labefy",
+						"playlists",
+						":playlistId"
+					],
+					"variable": [
+						{
+							"key": "playlistId",
+							"value": "eef98c67-2fab-4826-9363-0a1a6e0997d7"
+						}
+					]
+				},
+				"description": "Esta requisição serve para deletar alguma playlist."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
