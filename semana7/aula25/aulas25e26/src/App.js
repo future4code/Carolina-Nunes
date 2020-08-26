@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
 import ListaUsuarios from './components/ListaUsuarios'
 import CadastroUsuarios from './components/CadastroUsuarios'
 import styled from 'styled-components'
 
-
+const AppContainer = styled.div`
+  text-align: left;
+  width: 100%;
+  height: 100vh;
+  margin: 2%;
+`
 
 export default class App extends React.Component {
   state = {
@@ -30,9 +34,9 @@ export default class App extends React.Component {
     }
     
     return (
-      <div>
+      <AppContainer>
         {paginaUsuarios()}
-      </div>
+      </AppContainer>
     );
   }  
 }
