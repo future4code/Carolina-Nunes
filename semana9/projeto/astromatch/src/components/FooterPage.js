@@ -27,6 +27,7 @@ export default function FooterPage(){
             <FooterClear>
                 <Button onClick={() => clearMatches()} variant="contained" style={{ fontSize: 20 }}>Limpar matches</Button>
             </FooterClear>
+            
 
         </div>
 

@@ -34,6 +34,7 @@ function App() {
       </Header>
       {renderPage()}
       <FooterPage />
+      <p>Projeto AstroMatch realizado por Carolina Della Nina para a Labenu - setembro de 2020</p>
     </div>
   );
 }
