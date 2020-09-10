@@ -1,67 +1,91 @@
-import React, { useState } from 'react';
-import style from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { Header, BoxCard, ImgCard, Footer }from './Styled';
 import axios from 'axios';
-import Box from '@material-ui/core/Box'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
+
+
+const myTheme = createMuiTheme({
+    palette:{
+      primary: {
+        main:"#4caf50",
+        contrastText: "#ffffff"
+      },
+      secondary:{
+        main:"#f44336",
+        contrastText: "#ffffff"
+      }
+    }
+})
 
 
 export default function Home() {
-    const [people, setPeople] = useState([])
+    const [profile, setProfile] = useState({})
+
+    useEffect(() => {
+        getProfile();
+    }, []);
 
     const getProfile = () => {
-        axios
-        .get("https://us-central1-missao-newton.cloudfunctions.net/astroMatch/:aluno/person")
+        const request = axios
+        .get("https://us-central1-missao-newton.cloudfunctions.net/astroMatch/carolina/person")
+
+        request
         .then((response) => {
             console.log(response)
-            setPeople(response.data)
+            setProfile(response.data.profile)
         })
         .catch((error) => {
             console.log(error)
         })
     }
 
-    const getMatches = () => {
-        axios
-        .get("https://us-central1-missao-newton.cloudfunctions.net/astroMatch/:aluno/matches")
-        .then((response) => {
-            console.log(response)
-            setPeople(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+    const clickChoice = (choice) => {
+        const body = {
+            id: profile.id,
+            choice: choice
+        }
+        const request = axios.post("https://us-central1-missao-newton.cloudfunctions.net/astroMatch/carolina/choose-person", body)
+
+        request
+            .then((response) => {
+                console.log("OK!", response.data)
+                getProfile()
+            })
+            .catch((error) => {
+                console.log("erro", error)
+            })
     }
-
-
-    // componentDidMount(){
-    //     getProfile()
-    // }
 
     return(
-        <div>
-            <Box>
-                <div>
-                    <h3>AstroMatch</h3>
-                </div>
-                <CardMedia 
+        <MuiThemeProvider theme={myTheme}>
+            <BoxCard>
+                <CardActionArea>
+                    <CardMedia>
+                        <ImgCard src={profile.photo} />
+                    </CardMedia>
 
-                />
+                    <CardContent>
+                        <Typography variant="h4">{profile.name} - {profile.age} anos</Typography>
+                        <Typography variant="h6">{profile.bio}</Typography>
+                    </CardContent>
+                </CardActionArea>
+            </BoxCard>
+            <Footer>
+                <Button color="secondary" onClick={() => clickChoice(false)}>
+                    <CancelIcon style={{ fontSize: 80 }}/>
+                </Button>
+                <Button color="primary" onClick={() => clickChoice(true)}>
+                    <CheckCircleIcon style={{ fontSize: 80 }}/>
+                </Button>
+            </Footer>
 
-                <CardContent>
-                    <Typography>oi</Typography>
-                    <Typography>alo</Typography>
-                </CardContent>
-                   
-                <Box>
-                    <Button variant="contained" color="secondary" >NÃO</Button>
-                    <Button variant="contained" color="primary" >SIM</Button>
-                </Box>
-                
-            </Box>
-
-        </div>
+        </MuiThemeProvider>
     )
 }
