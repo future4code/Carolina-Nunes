@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory, useParams } from "react-router-dom";
-import { goToAppFormPage } from './GoToPages'
+import { TextList } from '../styled/ListTripsStyled';
+import { useParams, useHistory } from "react-router-dom";
+import { useProtectPage } from '../hooks/useProtectPage'
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
 import {
     Card, 
-    CardActionArea, 
-    CardActions, 
     CardContent, 
     Typography,
-    Button,
 } from '@material-ui/core';
 
 const myTheme = createMuiTheme({
@@ -25,20 +23,18 @@ const myTheme = createMuiTheme({
 
 export default function DetailTrip(){
     const [trip, setTrip] = useState({})
-    const history = useHistory();
     const pathParams = useParams()
-
-
-    useEffect(() => {
-        getTripDetail()
-    }, [])
+    const history = useHistory();
 
     const getTripDetail = () => {
-        const request = axios
-        .get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trip/${pathParams.id}`)
-
-        request
+        axios
+        .get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trip/${pathParams.id}`, {
+            headers: {
+                auth: localStorage.getItem("token")
+            }
+        })
         .then((response) => {
+            console.log(response.data.trip)
             setTrip(response.data.trip)
         })
         .catch((error) => {
@@ -46,34 +42,31 @@ export default function DetailTrip(){
         })
     }
 
+    useProtectPage(getTripDetail)
+    
     return(
         <MuiThemeProvider theme={myTheme}>
+            <TextList>
+                Detalhe da viagem
+            </TextList>
             <Card variant="outlined">
                 <CardContent>
-                        <Typography component="h2">
+                        <Typography variant="h3" component="h1">
                             {trip.name}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="h6" color="textSecondary" component="p">
                             {trip.description}
                         </Typography>
-                        <Typography variant="body1" color="textPrimary" component="h4">
+                        <Typography variant="h4" color="textPrimary" component="h4">
                             {trip.planet}
                         </Typography>
-                        <Typography variant="body1" color="textPrimary" component="h5">
-                            {trip.date}
-                            {trip.durationInDays} dias
-                            {trip.candidates}
+                        <Typography variant="h5" color="textPrimary" component="h5">
+                            Data da viagem: {trip.date}
+                        </Typography>
+                        <Typography variant="h5" color="textPrimary" component="h5">
+                            Duração: {trip.durationInDays} dias
                         </Typography>
                 </CardContent>
-                <CardActions>
-                        <Button 
-                            onClick={() => goToAppFormPage(history)}
-                            size="small" 
-                            color="primary"
-                            variant="contained">
-                            Quero me inscrever!
-                        </Button>
-                </CardActions>
             </Card>
         </MuiThemeProvider>
 

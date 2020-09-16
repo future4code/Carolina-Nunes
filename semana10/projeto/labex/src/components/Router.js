@@ -1,13 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from './Home'
-import AppForm from './AppForm'
-import LoginPage from './LoginPage'
+import Home from './Home';
+import AppForm from './AppForm';
+import LoginPage from './LoginPage';
 import CreateTrip from './CreateTrip'
 import ListTrip from './ListTrips'
 import DetailTrip from './DetailTrip'
 import Header from './Header';
 import Footer from './Footer';
+import ListTripAdm from './ListTripsAdm'
+import CandidatesTrip from './CandidatesTrip'
 
 export default function Router(){
 
@@ -33,6 +35,12 @@ export default function Router(){
                     </Route>
                     <Route exact path="/trips/details/:id">
                         <DetailTrip />
+                    </Route>
+                    <Route exact path="/trips/list/admin">
+                        <ListTripAdm />
+                    </Route>
+                    <Route exact path="/trips/candidates/admin">
+                        <CandidatesTrip />
                     </Route>
                     <Route>
                         <div>Erro (404)</div>

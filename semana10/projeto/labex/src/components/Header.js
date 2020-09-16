@@ -27,7 +27,7 @@ export default function Header(){
                 <HomeIcon onClick={() => goToHome(history)} color="primary" style={{ fontSize: 60 }}/>
                 <h1>LabeX</h1>
                 <ButtonDiv>
-                    <Button onClick={() => goToLoginPage(history)} variant="contained" color="primary" size="large">LOGIN</Button>
+                    <Button onClick={() => goToLoginPage(history)} variant="contained" color="primary" size="large">Administrador</Button>
                 </ButtonDiv>
             </HeaderContainer>
         </MuiThemeProvider>

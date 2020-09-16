@@ -1,42 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+import { useHistory, useParams } from "react-router-dom";
+import { goToListTripAdmPage } from './GoToPages'
 import { TextLogin } from '../styled/LoginPageStyled';
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
 import {
-    Card, 
-    CardActionArea, 
-    CardActions, 
-    CardContent, 
     Typography,
     Button,
     TextField
 } from '@material-ui/core';
 
-
-export const Rotulo = styled.label`
-  margin: 6px;
-`
+const myTheme = createMuiTheme({
+    palette:{
+      primary: {
+        main:"#204473"
+      },
+      secondary:{
+        main:"#F2AF88"
+      }
+    }
+})
 
 export default function LoginPage(){
     const [emailValue, setEmailValue] = useState("")
     const [passwordValue, setPasswordValue] = useState("")
+    const history = useHistory();
+    const pathParams = useParams()
 
-    const onChangeEmailInput = (e) => {
-        setEmailValue(e.target.value)
+    useEffect(() => {
+        const token = window.localStorage.getItem("token")
+
+        if (token) {
+            history.push(`/trips/list/admin`)
+        }
+    }, [history])
+
+    const onChangeEmailInput = (event) => {
+        setEmailValue(event.target.value)
     }
 
-    const onChangePasswordInput = (e) => {
-        setPasswordValue(e.target.value)
+    const onChangePasswordInput = (event) => {
+        setPasswordValue(event.target.value)
     }
 
-    const getLogin = () => {
-        const request = axios
-        .get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/login")
+    const handleLogin = () => {
+        const body = {
+            email: emailValue,
+            password: passwordValue
+        }
+
+        axios
+        .post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/login", body)
+        .then((response) => {
+            localStorage.setItem("token", response.data.token);
+            history.push(`/trips/list/admin`)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
+
 
     return(
-        <div>
+        <MuiThemeProvider theme={myTheme}>
             <TextLogin>Login de Administrador</TextLogin>
             <Typography for="email">E-mail:</Typography>
             <TextField 
@@ -58,7 +84,15 @@ export default function LoginPage(){
             value={passwordValue}
             onChange={onChangePasswordInput}
             />
-        </div>
+            <br></br>
+            <Button 
+                onClick={handleLogin}
+                size="large" 
+                color="primary"
+                style={{ margin: 10 }} 
+                variant="contained">LOGIN
+            </Button>
+        </MuiThemeProvider>
 
     )
 }

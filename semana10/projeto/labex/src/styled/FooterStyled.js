@@ -6,6 +6,7 @@ export const FooterContainer = styled.footer`
   text-align: center;
   width: 100%;
   margin-top: 5%;
+  position: absolute;
 `
 export const RedesSociais = styled.div`
   background-color: #F2AF88;

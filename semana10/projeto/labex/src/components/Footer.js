@@ -10,7 +10,7 @@ import {
 export default function Home(){
 
     return(
-        <FooterContainer>
+      <FooterContainer>
         <RedesSociais>
           <p>Siga-nos em nossas redes sociais:</p>
           <Icones>
