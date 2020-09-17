@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { goToListTripAdmPage } from './GoToPages'
 import { TextList } from '../styled/ListTripsStyled';
 import { useParams, useHistory } from "react-router-dom";
 import { useProtectPage } from '../hooks/useProtectPage'
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import { myTheme } from '../styled/MyTheme'
 import {
+    MuiThemeProvider,
     Card, 
     CardContent, 
     Typography,
+    Button,
 } from '@material-ui/core';
 
-const myTheme = createMuiTheme({
-    palette:{
-      primary: {
-        main:"#204473"
-      },
-      secondary:{
-        main:"#F2AF88"
-      }
-    }
-})
 
 export default function DetailTrip(){
     const [trip, setTrip] = useState({})
@@ -68,6 +61,9 @@ export default function DetailTrip(){
                         </Typography>
                 </CardContent>
             </Card>
+            <Button variant="contained" color="primary" size="large" style={{ margin: 10 }} onClick={() => goToListTripAdmPage(history)}>
+                Voltar para a lista de viagens
+            </Button>
         </MuiThemeProvider>
 
     )

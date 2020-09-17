@@ -2,8 +2,9 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import { goToAppFormPage, goToListTripPage} from './GoToPages'
 import { CardHome, Text } from '../styled/HomeStyled'
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import { myTheme } from '../styled/MyTheme'
 import {
+    MuiThemeProvider,
     Card, 
     CardActionArea, 
     CardActions, 
@@ -13,16 +14,6 @@ import {
     Button,
 } from '@material-ui/core';
 
-const myTheme = createMuiTheme({
-    palette:{
-      primary: {
-        main:"#204473"
-      },
-      secondary:{
-        main:"#F2AF88"
-      }
-    }
-})
 
 export default function Home(){
     const history = useHistory();

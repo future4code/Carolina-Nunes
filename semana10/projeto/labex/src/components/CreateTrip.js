@@ -1,64 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
-import { useProtectPage } from '../hooks/useProtectPage'
-import { useParams, useHistory } from "react-router-dom";
 import { TextCreate } from '../styled/CreateTripStyled';
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import { useForm } from '../hooks/useForm';
+import { myTheme } from '../styled/MyTheme'
 import {
+    MuiThemeProvider,
     Typography,
     Button,
-    TextField
+    TextField,
+    Select,
+    MenuItem,
+    Input
 } from '@material-ui/core';
 
-const myTheme = createMuiTheme({
-    palette:{
-      primary: {
-        main:"#204473"
-      },
-      secondary:{
-        main:"#F2AF88"
-      }
-    }
-})
-
 export default function CreateTrip(){
-    const [nameValue, setNameValue] = useState("")
-    const [planetValue, setPlanetValue] = useState("")
-    const [dateValue, setDateValue] = useState("")
-    const [descriptionValue, setDescriptionValue] = useState("")
-    const [durationValue, setDurationValue] = useState(0)
-    const history = useHistory();
-    const pathParams = useParams()
+    const { form, onChange, resetState } = useForm({
+        name: "",
+        planet: "",
+        date: "",
+        description: "",
+        durationInDays: 0,
+    })
 
-    const onChangeName = (event) => {
-        setNameValue(event.target.value)
+    const handleInputChange = (event) => {
+        const { name, value } = event.target
+
+        onChange(name, value)
     }
 
-    const onChangePlanet = (event) => {
-        setPlanetValue(event.target.value)
-    }
+    const handleSubmittion = (event) =>{
+        event.preventDefault()
 
-    const onChangeDate = (event) => {
-        setDateValue(event.target.value)
-    }
-
-    const onChangeDescription = (event) => {
-        setDescriptionValue(event.target.value)
-    }
-
-    const onChangeDuration = (event) => {
-        setDurationValue(event.target.value)
+        resetState()
     }
 
     const createTrip = () => {
         const body = {
-            name: nameValue,
-            planet: planetValue,
-            date: dateValue,
-            description: descriptionValue,
-            durationInDays: durationValue
+            name: form.name,
+            planet: form.planet,
+            date: form.date,
+            description: form.description,
+            durationInDays: form.durationInDays
         }
-
+    
         axios
         .post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trips", body, {
             headers: {
@@ -66,7 +50,6 @@ export default function CreateTrip(){
             }
         })
         .then((response) => {
-            setNameValue("")
             alert("Viagem cadastrada com sucesso!")
         })
         .catch((error) => {
@@ -74,65 +57,90 @@ export default function CreateTrip(){
         })
     }
 
-    useProtectPage(createTrip)
+    // useProtectPage(createTrip)
 
     return(
         <MuiThemeProvider theme={myTheme}>
             <TextCreate>Cadastro de viagens</TextCreate>
-            <Typography for="name">Nome:</Typography>
-            <TextField 
-            label="" 
-            variant="outlined" 
-            style={{ width: 400 }} 
-            type="text" 
-            id="name" 
-            value={nameValue}
-            onChange={onChangeName}
-            />
-            <Typography for="planet">Planeta:</Typography>
-            <TextField 
-            label="" 
-            variant="outlined" 
-            style={{ width: 400 }} 
-            type="text" 
-            id="planet" 
-            value={planetValue}
-            onChange={onChangePlanet}
-            />
-            <Typography for="date">Data:</Typography>
-            <TextField 
-            label="" 
-            variant="outlined" 
-            style={{ width: 200 }} 
-            type="text" 
-            id="date" 
-            value={dateValue}
-            onChange={onChangeDate}
-            />
-            <Typography for="description">Descrição:</Typography>
-            <TextField 
-            label="" 
-            variant="outlined" 
-            style={{ width: 600 }} 
-            type="text" 
-            id="description" 
-            value={descriptionValue}
-            onChange={onChangeDescription}
-            />
-            <Typography for="duration">Duração em dias:</Typography>
-            <TextField 
-            label="" 
-            variant="outlined" 
-            style={{ width: 200 }} 
-            type="number" 
-            id="duration" 
-            value={durationValue}
-            onChange={onChangeDuration}
-            />
-            <br></br>
-            <Button variant="contained" color="primary" style={{ margin: 10 }} size="large" onClick={createTrip}>
-                CRIAR VIAGEM
-            </Button>
+            <form onSubmit={handleSubmittion}>
+
+                <Typography for="name">Nome:</Typography>
+                <TextField 
+                    variant="outlined" 
+                    style={{ width: 400 }} 
+                    id="name" 
+                    name="name"
+                    type="text" 
+                    value={form.name}
+                    onChange={handleInputChange}
+                    pattern="[A-Za-z]{5,}"
+                    title="Insira, no minimo, 5 letras"
+                    required
+                />
+                <Typography for="planet">Planeta:</Typography>
+                <Select
+                    variant="outlined" 
+                    labelId="demo-simple-select-outlined-label"
+                    id="planet"
+                    name="planet"
+                    color="primary"
+                    style={{ width: 200 }}
+                    onChange={handleInputChange}
+                    value={form.planet}>
+                    <MenuItem value={""}></MenuItem>
+                    <MenuItem value={"Mercurio"}>Mercúrio</MenuItem>
+                    <MenuItem value={"Venus"}>Vênus</MenuItem>
+                    <MenuItem value={"Terra"}>Terra</MenuItem>
+                    <MenuItem value={"Marte"}>Marte</MenuItem>
+                    <MenuItem value={"Jupiter"}>Júpiter</MenuItem>
+                    <MenuItem value={"Saturno"}>Saturno</MenuItem>
+                    <MenuItem value={"Urano"}>Urano</MenuItem>
+                    <MenuItem value={"Netuno"}>Netuno</MenuItem>
+                    <MenuItem value={"Plutao"}>Plutão</MenuItem>
+                </Select>
+                <Typography for="date">Data:</Typography>
+                <TextField 
+                    variant="outlined" 
+                    style={{ width: 200 }} 
+                    id="date"
+                    name="date"
+                    type="text" 
+                    value={form.date}
+                    onChange={handleInputChange}
+                    pattern="/^((?:(?=29[\/\-.]0?2[\/\-.](?:[1-9]\d)?(?:[02468][048]|[13579][26])(?!\d))29)|(?:(?=31[\/\-.](?!11)0?[13578]|1[02])31)|(?:(?=\d?\d[\/\-.]\d?\d[\/\-.])(?!29[\/\-.]0?2)(?!31)(?:[12][0-9]|30|0?[1-9])))[\/\-.](0?[1-9]|1[0-2])[\/\-.]((?:[1-9]\d)?\d{2})$/"
+                    title="Coloque a data no formato dd/mm/aaaa"
+                    required
+                />
+                <Typography for="description">Descrição:</Typography>
+                <TextField 
+                    variant="outlined" 
+                    style={{ width: 600 }} 
+                    id="description" 
+                    name="description" 
+                    type="text" 
+                    value={form.description}
+                    onChange={handleInputChange}
+                    pattern="[A-Za-z]{50,}"
+                    title="Insira, no minimo, 50 letras"
+                    required
+                />
+                <Typography for="duration">Duração em dias:</Typography>
+                <Input 
+                    variant="outlined" 
+                    style={{ width: 200 }} 
+                    id="durationInDays" 
+                    name="durationInDays" 
+                    type="number"
+                    value={form.durationInDays}
+                    onChange={handleInputChange}
+                    min="50"
+                    required
+                />
+                <br></br>
+                <Button variant="contained" color="primary" style={{ margin: 10 }} size="large" onClick={createTrip}>
+                    CRIAR VIAGEM
+                </Button>
+            </form>
         </MuiThemeProvider>
 
     )

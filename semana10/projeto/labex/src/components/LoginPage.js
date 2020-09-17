@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from "react-router-dom";
-import { goToListTripAdmPage } from './GoToPages'
 import { TextLogin } from '../styled/LoginPageStyled';
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import { myTheme } from '../styled/MyTheme';
 import {
+    MuiThemeProvider,
     Typography,
     Button,
     TextField
 } from '@material-ui/core';
 
-const myTheme = createMuiTheme({
-    palette:{
-      primary: {
-        main:"#204473"
-      },
-      secondary:{
-        main:"#F2AF88"
-      }
-    }
-})
 
 export default function LoginPage(){
     const [emailValue, setEmailValue] = useState("")

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { CardDiv, TextList } from '../styled/ListTripsStyled';
 import { useParams, useHistory } from "react-router-dom";
 import { useProtectPage } from '../hooks/useProtectPage'
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import { myTheme } from '../styled/MyTheme'
 import {
+    MuiThemeProvider,
     Card, 
     CardActionArea, 
     CardActions, 
@@ -12,17 +13,6 @@ import {
     Typography,
     Button,
 } from '@material-ui/core';
-
-const myTheme = createMuiTheme({
-    palette:{
-      primary: {
-        main:"#204473"
-      },
-      secondary:{
-        main:"#F2AF88"
-      }
-    }
-})
 
 export default function CandidatesTrips(){
   const [candidates, setCandidates] = useState([])

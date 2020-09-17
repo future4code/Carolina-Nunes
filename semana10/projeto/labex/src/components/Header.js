@@ -1,21 +1,12 @@
 import React from 'react';
-import {Button,createMuiTheme, MuiThemeProvider} from '@material-ui/core'
+import {Button, MuiThemeProvider} from '@material-ui/core'
 import HomeIcon from '@material-ui/icons/Home';
 import { ButtonDiv, HeaderContainer } from '../styled/HeaderStyled'
 import { goToLoginPage, goToHome } from './GoToPages'
 import { useHistory } from "react-router-dom";
+import { myTheme } from '../styled/MyTheme'
 
 
-const myTheme = createMuiTheme({
-    palette:{
-      primary: {
-        main:"#204473"
-      },
-      secondary:{
-        main:"#F2AF88"
-      }
-    }
-})
 
 export default function Header(){
   const history = useHistory();
