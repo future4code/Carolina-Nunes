@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { CardDiv, TextList } from '../styled/ListTripsStyled';
+import { CardDiv, TextList } from '../ListTrips/ListTripsStyled';
+import { useProtectPage } from '../../hooks/useProtectPage'
 import { useHistory } from "react-router-dom";
-import { goToAppFormPage } from './GoToPages'
-import { myTheme } from '../styled/MyTheme'
+import { goToDetailTripPage, goToCandidatesTripPage, goToCreateTripPage} from '../GoToPages'
+import { myTheme } from '../../styled/MyTheme'
 import {
     MuiThemeProvider,
     Card, 
@@ -15,19 +16,14 @@ import {
 } from '@material-ui/core';
 
 
-export default function ListTrips(){
+export default function ListTripsAdm(){
     const [trips, setTrips] = useState([])
     const history = useHistory();
 
-    useEffect(() => {
-        getTrips()
-    }, [])
 
     const getTrips = () => {
-        const request = axios
+        axios
         .get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trips")
-
-        request
         .then((response) => {
             setTrips(response.data.trips)
         })
@@ -36,11 +32,25 @@ export default function ListTrips(){
         })
     }
 
+    useProtectPage(getTrips)
+
     return(
         <MuiThemeProvider theme={myTheme}>
             <TextList>
-                Viagens disponíveis:
+               PAINEL ADMINISTRADOR -- Viagens cadastradas:
             </TextList>
+                <Button 
+                onClick={() => goToCandidatesTripPage(history)}
+                size="large" 
+                color="primary"
+                style={{ margin: 10 }} 
+                variant="contained">Gerenciar viajantes</Button>
+                <Button 
+                onClick={() => goToCreateTripPage(history)}
+                size="large" 
+                color="primary"
+                style={{ margin: 10 }} 
+                variant="contained">Criar novas viagens</Button>
             {trips.map((trip) => {
                 return(
                     <CardDiv>
@@ -63,11 +73,11 @@ export default function ListTrips(){
                             </CardActionArea>
                             <CardActions>
                                 <Button 
-                                    onClick={() => goToAppFormPage(history)}
+                                    onClick={() => goToDetailTripPage(history, trip.id)}
                                     size="small" 
-                                    color="primary"
+                                    color="secondary"
                                     variant="contained">
-                                    Quero me inscrever!
+                                    Visualizar detalhe da viagem
                                 </Button>
                             </CardActions>
                         </Card>

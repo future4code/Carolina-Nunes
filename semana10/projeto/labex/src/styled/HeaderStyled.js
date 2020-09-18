@@ -13,8 +13,8 @@ export const HeaderContainer = styled.div`
     > h1 {
         margin: 0;
         font-family: 'Space Mono', monospace;
-        color: white;
-        font-size: 50px;
+        color: lightgray;
+        font-size: 70px;
   }
 `
 export const ButtonDiv = styled.div`

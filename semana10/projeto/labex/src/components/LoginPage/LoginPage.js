@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from "react-router-dom";
-import { TextLogin } from '../styled/LoginPageStyled';
-import { myTheme } from '../styled/MyTheme';
+import { TextLogin } from './LoginPageStyled';
+import { myTheme } from '../../styled/MyTheme';
 import {
     MuiThemeProvider,
     Typography,

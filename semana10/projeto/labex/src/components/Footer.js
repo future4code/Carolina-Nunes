@@ -7,7 +7,7 @@ import {
   } from '../styled/FooterStyled';
 
 
-export default function Home(){
+export default function Footer(){
 
     return(
       <FooterContainer>

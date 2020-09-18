@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useForm } from '../hooks/useForm'
-import { TextForm } from '../styled/AppFormStyled';
+import { useForm } from '../../hooks/useForm'
+import { TextForm } from './AppFormStyled';
 import { useParams, useHistory } from "react-router-dom";
-import { myTheme } from '../styled/MyTheme'
+import { myTheme } from '../../styled/MyTheme'
 import {
 	MuiThemeProvider,
     Typography,
@@ -15,134 +15,138 @@ import {
 } from '@material-ui/core';
 
 export default function AppForm(){
-  
-  const { form, onChange, resetState } = useForm({
-    name: "",
-    age: 0,
-    applicationText: "",
-    profession: "",
-    country: "",
-    tripId: ""
-  })
-  const [trips, setTrips] = useState([])
-  const history = useHistory();
-  const pathParams = useParams()
+	
+	const [trips, setTrips] = useState([])
+	const pathParams = useParams()
+	const { form, onChange, resetState } = useForm({
+    	name: "",
+   	 	age: 0,
+   	 	applicationText: "",
+   	 	profession: "",
+   	 	country: "",
+   	 	trip: null
+	})
+	
+	const handleInputChange = (event) => {
+        const { name, value } = event.target
 
-  const handleCandidateInput = (event) => {
-    const { name, value } = event.target
+        onChange(name, value)
+	}
+	
+  	const applyTrip = (event) => {
+    	event.preventDefault()
+		const body = {
+			name: form.name,
+			age: Number(form.age),
+			applicationText: form.applicationText,
+			profession: form.profession,
+			country: form.country,
+		}
 
-    onChange(name, value)
-  }
+		axios
+    	.post(`ttps://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trips/${pathParams.id}/apply`, body, {
+      		headers: {
+        		auth: localStorage.getItem("token")
+      		}
+		})
+		.then((response) => {
+			alert("Inscrição enviada com sucesso!")
+			resetState()
+		})
+		.catch((error) => {
+			console.log(error)
+		})
+  	}
+   
+  	const getTrips = () => {
+    	axios
+    	.get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trips")
+		.then((response) => {
+			setTrips(response.data.trips)
+		})
+    	.catch((error) => {
+        	console.log(error)
+    	})
+  	}
 
-  const handleSubmitCandidate = (event) => {
-    event.preventDefault()
+  	useEffect(() => {
+    	getTrips()
+  	}, [])
 
-    resetState()
-  }
-
-  const applyTrip = () => {
-    const body = {
-      name: form.name,
-      age: form.age,
-      applicationText: form.applicationText,
-      profession: form.profession,
-      country: form.country,
-      tripId: form.tripId,
-    }
-
-    axios
-    .post(`ttps://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trips/${pathParams.id}/apply`, body, {
-      headers: {
-        auth: localStorage.getItem("token")
-      }
-    })
-    .then((response) => {
-      alert("Inscrição enviada com sucesso!")
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
-
-  const getTrips = () => {
-    const request = axios
-    .get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/carolina-jackson/trips")
-
-    request
-    .then((response) => {
-        setTrips(response.data.trips)
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-  }
-
-  useEffect(() => {
-    getTrips()
-  }, [])
-
-  return(
-      <MuiThemeProvider theme={myTheme}>
-        <form onSubmit={handleSubmitCandidate}>
-          <TextForm>Formulário de cadastro</TextForm>
-          <Typography for="name">Nome:</Typography>
-          <TextField 
-            variant="outlined" 
-            style={{ width: 400 }} 
-            type="text" 
-            id="name" 
-            name="name"
-            value={form.name}
-            onChange={handleCandidateInput}
-            pattern="[A-Za-z]{3,}"
-            title="Insira, no mínimo, 3 letras"
-            required
-          />
-          <Typography for="age">Idade:</Typography>
-          <Input
-            variant="outlined" 
-            style={{ width: 200 }} 
-            type="number" 
-            id="age"
-            name="age"
-            value={form.age}
-            onChange={handleCandidateInput}
-            max="18"
-            required
-          />
-          <Typography for="applicationText">Por que você quer viajar?</Typography>
-          <TextField 
-            variant="outlined" 
-            style={{ width: 600 }} 
-            type="text" 
-            id="applicationText" 
-            name="applicationText"
-            value={form.applicationText}
-            onChange={handleCandidateInput}
-            pattern="^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{30,}$"
-          />
-          <Typography for="profession">Profissão:</Typography>
-          <TextField 
-            variant="outlined" 
-            style={{ width: 400 }} 
-            type="text" 
-            id="profession" 
-            name="profession"
-            value={form.profession}
-            onChange={handleCandidateInput}
-            pattern="^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{10,}$"
+  	return(
+    	<MuiThemeProvider theme={myTheme}>
+        <form onSubmit={applyTrip}>
+        	<TextForm>Formulário de cadastro</TextForm>
+          	<Typography for="name">Nome:</Typography>
+          	<TextField 
+				style={{ width: 400 }} 
+				variant="outlined" 
+            	type="text" 
+            	id="name" 
+            	name="name"
+            	value={form["name"]}
+				onChange={handleInputChange}
+				inputProps={{
+					pattern: "[A-Za-z ]{3,}", 
+					required: true,
+					title: "Insira, no minimo, 3 letras"
+				}}
+          	/>
+          	<Typography for="age">Idade:</Typography>
+          	<Input
+            	variant="outlined" 
+            	style={{ width: 200 }} 
+            	id="age"
+            	name="age"
+            	value={form["age"]}
+				onChange={handleInputChange}
+				inputProps={{
+					min: "18",
+					required: true,
+					type: "number"
+				}}
+          	/>
+          	<Typography for="applicationText">Por que você quer viajar?</Typography>
+          	<TextField 
+            	variant="outlined" 
+           	 	style={{ width: 600 }} 
+           	 	type="text" 
+           	 	id="applicationText" 
+           	 	name="applicationText"
+           	 	value={form["applicationText"]}
+				onChange={handleInputChange}
+				inputProps={{
+					minlenght: 30,
+                    required: true,
+                    title: "Insira, no minimo, 30 caracteres"
+                }}
+          	/>
+          	<Typography for="profession">Profissão:</Typography>
+          	<TextField 
+            	variant="outlined" 
+            	style={{ width: 400 }} 
+            	type="text" 
+            	id="profession" 
+            	name="profession"
+            	value={form["profession"]}
+				onChange={handleInputChange}
+				inputProps={{
+					minlenght: 50,
+                    required: true,
+                    title: "Insira, no minimo, 10 caracteres"
+                }}
             />
-          <Typography for="country">País:</Typography>
-          <Select
-            variant="outlined" 
-            labelId="demo-simple-select-outlined-label"
-            id="country"
-            name="country"
-            color="primary"
-            style={{ width: 200 }}
-            onChange={handleCandidateInput}
-            value={form.country}>
-              <MenuItem value={"Brasil"} selected="selected">Brasil</MenuItem>
+          	<Typography for="country">País:</Typography>
+          	<Select
+            	variant="outlined" 
+            	labelId="demo-simple-select-outlined-label"
+            	id="country"
+            	name="country"
+            	color="primary"
+            	style={{ width: 200 }}
+            	onChange={handleInputChange}
+            	value={form["country"]}>
+              	<MenuItem value={"Brasil"} selected="selected">Brasil</MenuItem>
 	            <MenuItem value={"Afeganistão"}>Afeganistão</MenuItem>
 	            <MenuItem value={"África do Sul"}>África do Sul</MenuItem>
 	            <MenuItem value={"Albânia"}>Albânia</MenuItem>
@@ -392,29 +396,35 @@ export default function AppForm(){
 	            <MenuItem value={"Wallis e Futuna"}>Wallis e Futuna</MenuItem>
 	            <MenuItem value={"Zimbabwe"}>Zimbabwe</MenuItem>
 	            <MenuItem value={"Zâmbia"}>Zâmbia</MenuItem>
-          </Select>
-          <Typography for="tripId">Viagem escolhida:</Typography>
-          <Select
-          variant="outlined" 
-          labelId="demo-simple-select-outlined-label"
-          id="tripId"
-          name="tripId"
-          color="primary"
-          style={{ width: 400 }}
-          onChange={handleCandidateInput}
-          value={form.tripId}>
-            {trips.map((trip) => {
-              return(
-              <MenuItem value={trip.name}>{trip.name}</MenuItem>
-              )
-            })}
-          </Select>
+          	</Select>
+          	<Typography for="trip">Viagem escolhida:</Typography>
+          	<Select
+          		variant="outlined" 
+          		labelId="demo-simple-select-outlined-label"
+          		id="trip"
+          		name="trip"
+          		color="primary"
+          		style={{ width: 400 }}
+          		onChange={handleInputChange}
+          		value={form["trip"]}>
+            	{trips.map((trip) => {
+              		return(
+              			<MenuItem value={trip.name}>{trip.name}</MenuItem>
+              		)
+            	})}
+          	</Select>
             <br></br>
-          <Button variant="contained" color="primary" size="large" style={{ margin: 10 }} onClick={applyTrip}>
-            Quero viajar!
-          </Button>
+			<Button 
+				variant="contained" 
+				color="primary" 
+				size="large" 
+				type="submit"
+				style={{ margin: 10 }} 
+			>
+            		Quero viajar!
+          	</Button>
         </form>
-      </MuiThemeProvider>
+    </MuiThemeProvider>
 
-  )
+  	)
 }

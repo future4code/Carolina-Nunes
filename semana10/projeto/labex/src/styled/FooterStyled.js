@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const FooterContainer = styled.footer`
-  padding-top: 0;
   text-align: center;
   width: 100%;
-  margin-top: 5%;
-  position: absolute;
+  margin-top: 2%;
+  position: relative;
+  bottom: 0;
 `
 export const RedesSociais = styled.div`
   background-color: #F2AF88;
-  height: 10vh;
+  height: 10%;
   > p {
     margin: 0;
     padding: 5px 0 0 0;
@@ -24,14 +24,14 @@ export const Icones = styled.div`
   margin: 0 auto;
   padding: 5px 0;
   > img {
-    width: 35px;
+    width: 30px;
     border-radius: 10px;
     cursor: pointer;
   }
 `
 export const DescricaoFooter = styled.div`
   background: #204473;
-  height: 5vh;
+  height: 5%;
   color: white;
   font-family: 'Space Mono', monospace;
   > p {

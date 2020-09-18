@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from './Home';
-import AppForm from './AppForm';
-import LoginPage from './LoginPage';
-import CreateTrip from './CreateTrip'
-import ListTrip from './ListTrips'
-import DetailTrip from './DetailTrip'
+import Home from './Home/Home';
+import AppForm from './AppForm/AppForm';
+import LoginPage from './LoginPage/LoginPage';
+import CreateTrip from './CreateTrip/CreateTrip'
+import ListTrip from './ListTrips/ListTrips'
+import DetailTrip from './DetailTrip/DetailTrip'
 import Header from './Header';
 import Footer from './Footer';
-import ListTripAdm from './ListTripsAdm'
-import CandidatesTrip from './CandidatesTrip'
+import ListTripAdm from './ListTripsAdm/ListTripsAdm'
+import CandidatesTrip from './CandidatesTrip/CandidatesTrip'
 
 export default function Router(){
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { TextCreate } from '../styled/CreateTripStyled';
-import { useForm } from '../hooks/useForm';
-import { myTheme } from '../styled/MyTheme'
+import { TextCreate } from './CreateTripStyled';
+import { useForm } from '../../hooks/useForm';
+import { myTheme } from '../../styled/MyTheme'
+
 import {
     MuiThemeProvider,
     Typography,
@@ -31,7 +32,6 @@ export default function CreateTrip(){
     const handleSubmittion = (event) =>{
         event.preventDefault()
 
-        resetState()
     }
 
     const createTrip = () => {
@@ -40,7 +40,7 @@ export default function CreateTrip(){
             planet: form.planet,
             date: form.date,
             description: form.description,
-            durationInDays: form.durationInDays
+            durationInDays: Number(form.durationInDays)
         }
     
         axios
@@ -51,21 +51,20 @@ export default function CreateTrip(){
         })
         .then((response) => {
             alert("Viagem cadastrada com sucesso!")
+            resetState()
         })
         .catch((error) => {
             console.log(error)
         })
     }
 
-    // useProtectPage(createTrip)
-
     return(
         <MuiThemeProvider theme={myTheme}>
             <TextCreate>Cadastro de viagens</TextCreate>
-            <form onSubmit={handleSubmittion}>
+            <form noValidate={false} onSubmit={handleSubmittion}>
 
                 <Typography for="name">Nome:</Typography>
-                <TextField 
+                <TextField
                     variant="outlined" 
                     style={{ width: 400 }} 
                     id="name" 
@@ -73,9 +72,11 @@ export default function CreateTrip(){
                     type="text" 
                     value={form.name}
                     onChange={handleInputChange}
-                    pattern="[A-Za-z]{5,}"
-                    title="Insira, no minimo, 5 letras"
-                    required
+                    inputProps={{
+                        pattern: "[A-Za-z ]{5,}", 
+                        required: true,
+                        title: "Insira, no minimo, 5 letras"
+                    }}
                 />
                 <Typography for="planet">Planeta:</Typography>
                 <Select
@@ -104,12 +105,15 @@ export default function CreateTrip(){
                     style={{ width: 200 }} 
                     id="date"
                     name="date"
-                    type="text" 
+                    type="date" 
                     value={form.date}
                     onChange={handleInputChange}
-                    pattern="/^((?:(?=29[\/\-.]0?2[\/\-.](?:[1-9]\d)?(?:[02468][048]|[13579][26])(?!\d))29)|(?:(?=31[\/\-.](?!11)0?[13578]|1[02])31)|(?:(?=\d?\d[\/\-.]\d?\d[\/\-.])(?!29[\/\-.]0?2)(?!31)(?:[12][0-9]|30|0?[1-9])))[\/\-.](0?[1-9]|1[0-2])[\/\-.]((?:[1-9]\d)?\d{2})$/"
-                    title="Coloque a data no formato dd/mm/aaaa"
-                    required
+                    inputProps={{
+                        pattern: "/^((?:(?=29[\/\-.]0?2[\/\-.](?:[1-9]\d)?(?:[02468][048]|[13579][26])(?!\d))29)|(?:(?=31[\/\-.](?!11)0?[13578]|1[02])31)|(?:(?=\d?\d[\/\-.]\d?\d[\/\-.])(?!29[\/\-.]0?2)(?!31)(?:[12][0-9]|30|0?[1-9])))[\/\-.](0?[1-9]|1[0-2])[\/\-.]((?:[1-9]\d)?\d{2})$/", 
+                        required: true,
+                        title: "Coloque a data no formato dd/mm/aaaa",
+                        min: "2020-10-10" 
+                    }}
                 />
                 <Typography for="description">Descrição:</Typography>
                 <TextField 
@@ -120,24 +124,35 @@ export default function CreateTrip(){
                     type="text" 
                     value={form.description}
                     onChange={handleInputChange}
-                    pattern="[A-Za-z]{50,}"
-                    title="Insira, no minimo, 50 letras"
-                    required
+                    inputProps={{
+                        pattern: "[A-Za-z ]{50,}", 
+                        required: true,
+                        title: "Insira, no minimo, 50 letras"
+                    }}
                 />
                 <Typography for="duration">Duração em dias:</Typography>
                 <Input 
+                    label="50"
                     variant="outlined" 
                     style={{ width: 200 }} 
                     id="durationInDays" 
                     name="durationInDays" 
-                    type="number"
                     value={form.durationInDays}
                     onChange={handleInputChange}
-                    min="50"
-                    required
+                    inputProps={{
+                        min: "50",
+                        required: true,
+                        type: "number"
+                    }}
                 />
                 <br></br>
-                <Button variant="contained" color="primary" style={{ margin: 10 }} size="large" onClick={createTrip}>
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    style={{ margin: 10 }} 
+                    size="large" 
+                    type="submit"
+                    onClick={createTrip}>
                     CRIAR VIAGEM
                 </Button>
             </form>

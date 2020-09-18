@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { goToAppFormPage, goToListTripPage} from './GoToPages'
-import { CardHome, Text } from '../styled/HomeStyled'
-import { myTheme } from '../styled/MyTheme'
+import { goToAppFormPage, goToListTripPage} from '../GoToPages'
+import { CardHome, Text } from './HomeStyled'
+import { myTheme } from '../../styled/MyTheme'
 import {
     MuiThemeProvider,
     Card, 

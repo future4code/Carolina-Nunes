@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { goToListTripAdmPage } from './GoToPages'
-import { TextList } from '../styled/ListTripsStyled';
+import { goToListTripAdmPage } from '../GoToPages'
+import { TextList } from '../ListTrips/ListTripsStyled';
 import { useParams, useHistory } from "react-router-dom";
-import { useProtectPage } from '../hooks/useProtectPage'
-import { myTheme } from '../styled/MyTheme'
+import { useProtectPage } from '../../hooks/useProtectPage'
+import { myTheme } from '../../styled/MyTheme'
 import {
     MuiThemeProvider,
     Card, 
@@ -34,6 +34,10 @@ export default function DetailTrip(){
             console.log(error)
         })
     }
+
+    useEffect(() => {
+        getTripDetail()
+    }, [])
 
     useProtectPage(getTripDetail)
     
