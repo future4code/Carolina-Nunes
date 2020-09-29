@@ -16,7 +16,7 @@ const LoginPage = () => {
   const history = useHistory()
   useUnprotectedPage()
 
-  const [form, handleInputChange] = useForm({
+  const {form, handleInputChange} = useForm({
     email: "",
     password: ""
   })
