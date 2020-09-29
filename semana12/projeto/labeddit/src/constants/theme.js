@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles'
 import { neutralColor, primaryColor, secondaryColor, darkNeutralColor, lightNeutralColor } from './colors'
 
 const theme = createMuiTheme({

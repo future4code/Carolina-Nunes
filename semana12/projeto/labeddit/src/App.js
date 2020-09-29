@@ -4,10 +4,11 @@ import theme from './constants/theme'
 import Router from './routes/Router'
 import { BrowserRouter } from 'react-router-dom'
 import MainAppBar from './components/AppBar/MainAppBar'
+import MainFooterBar from './components/FooterBar/MainFooterBar'
 import styled from 'styled-components'
 
 const InnerScreenContainer = styled.div`
-  padding-top: 7%;
+  margin-top: 10%;
 `
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <InnerScreenContainer>
           <Router/>
         </InnerScreenContainer>
+        <MainFooterBar/>
       </BrowserRouter>
     </MuiThemeProvider>
   )
