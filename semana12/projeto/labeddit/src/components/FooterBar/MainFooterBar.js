@@ -18,7 +18,7 @@ const MainFooterBar = () => {
 
     return(
       <DivFooter>
-        <Typography>Projeto LabEddit, por Carolina Della Nina - outubro de 2020</Typography>
+        <Typography>Projeto LabEddit, por Carolina Della Nina - outubro, 2020</Typography>
       </DivFooter>
     )
   }

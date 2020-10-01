@@ -1,92 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import { useHistory } from "react-router-dom";
-import { goToFeed, goToPost } from '../../routes/Coordinator'
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import PostCard from './PostCard'
+import PostForm from './PostForm'
+import Loading from '../../components/Loading/Loading'
+import useProtectedPage from '../../hooks/useProtectedPage'
+import useRequestData from '../../hooks/useRequestData'
 import {
   DivFeed,
   DivForm
 } from './Styled'
-import {
-  Card, 
-  CardActionArea, 
-  TextField,
-  CardContent, 
-  Typography,
-  Button,
-  Divider,
-} from '@material-ui/core';
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: 800,
-  },
-});
+import { goToPost } from '../../routes/Coordinator';
 
 const FeedPage = () => {
-  const classes = useStyles();
+  useProtectedPage()
   const history = useHistory()
+  const posts = useRequestData([], `/posts`)
 
+  const renderPosts = () => {
+    return(
+      posts.map((item) => {
+        return(
+          <PostCard
+            key={item.id}
+            onClick={() => goToPost(history, item.id)}
+            username={item.username}
+            title={item.title}
+            text={item.text}
+          />
+        )
+      })
+    )
+  }
 
   return (
     <div>
       <DivForm>
-        <form>
-          <TextField
-            label="Escreva seu post"
-            variant="outlined" 
-            style={{ width: 400 }} 
-            id="name" 
-            name="name"
-            type="text" 
-            // value={form.name}
-            // onChange={handleInputChange}
-            inputProps={{
-                pattern: "[A-Za-z ]{5,}", 
-                required: true,
-                title: "Insira, no minimo, 5 letras"
-            }}
-          />
-          <br></br>
-          <br></br>
-          <Button 
-            size="large"
-            color="primary"
-            variant="contained"
-            style={{ width: 200 }}
-            onClick={() => goToFeed(history)}>
-              POSTAR
-          </Button>
-        </form>
+        <PostForm />
       </DivForm>
       <DivFeed>
-        <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography variant="h5" component="h4" color="textPrimary" gutterBottom>
-              Usuário
-            </Typography>
-          </CardContent>
-          <Divider variant="middle"/>
-          <CardContent>
-            <Typography variant="body2" component="p">
-              Post
-            </Typography>
-          </CardContent>
-          <CardActionArea className={classes.pos}>
-          <Divider variant="middle"/>
-          <ArrowUpwardIcon
-            // onClick={this.onClickCurtida}
-            // valorContador={this.state.numeroCurtidas}
-          />
-          <ArrowDownwardIcon
-            // onClickIcone={this.onClickComentario}
-            // valorContador={this.state.numeroComentarios}
-          />
-          <Button onClick={() => goToPost(history)} size="small">Veja Mais</Button>
-          </CardActionArea>
-        </Card>
+        {console.log(posts)}
+        {posts.length > 0 ? renderPosts() : <Loading/>}
       </DivFeed>
     </div>
 

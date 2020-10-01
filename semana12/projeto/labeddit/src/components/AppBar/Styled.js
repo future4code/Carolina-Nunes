@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {Button} from '@material-ui/core'
 
 
 export const LogoImage = styled.img`
@@ -7,5 +8,10 @@ export const LogoImage = styled.img`
 `
 export const DivButton = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+`
+export const AppBarButton = styled(Button)`
+  padding: 2px;
 `

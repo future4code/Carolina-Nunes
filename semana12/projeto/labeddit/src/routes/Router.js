@@ -8,14 +8,14 @@ import PostPage from '../screens/PostPage/PostPage'
 import SignUpPage from '../screens/SignUpPage/SignUpPage'
 
 
-const Router = () => {
+const Router = (props) => {
   return(
       <Switch>
         <Route exact path={'/login'}>
-          <LoginPage/>
+          <LoginPage setButtonName={props.setButtonName}/>
         </Route>
         <Route exact path={'/cadastro'}>
-          <SignUpPage/>
+          <SignUpPage setButtonName={props.setButtonName}/>
         </Route>
         <Route exact path={'/posts'}>
           <FeedPage/>

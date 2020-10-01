@@ -2,7 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { goToSignUp } from '../../routes/Coordinator'
-import { DivLogin, DivButton } from './Styled'
+import { DivLogin, DivButton, LogoLogin, Container } from './Styled'
+import LabEddit from '../../assets/LabEddit.png'
 import useForm from '../../hooks/useForm'
 import useUnprotectedPage from '../../hooks/useUnprotectedPage'
 import {
@@ -10,95 +11,82 @@ import {
   Typography,
   TextField
 } from '@material-ui/core'
+import { login } from '../../services/user'
 
 
-const LoginPage = () => {
-  const history = useHistory()
+const LoginPage = (props) => {
   useUnprotectedPage()
+  const history = useHistory()
 
   const {form, handleInputChange} = useForm({
     email: "",
     password: ""
   })
-
-  const handleSubmittionLogin = (event) => {
+  
+  const onClickLogin = (event) => {
     event.preventDefault()
-  }
-
-  const onClickLogin = () => {
-    const body = {
-      email: form.email,
-      password: form.password
+    const element = document.getElementById('login_form')
+    const isValid = element.checkValidity()
+    element.reportValidity()
+    if (isValid){
+      login(form, history, props.setButtonName)
     }
-    axios
-    .post("https://us-central1-labenu-apis.cloudfunctions.net/labEddit/login", body)
-    .then((response) => {
-      localStorage.setItem("token", response.data.token)
-      history.push('/posts')
-    })
-    .catch((error) => {
-      alert("Erro ao fazer login")
-    })
   }
 
   
   return (
-    <div>
-      <form noValidate={false} onSubmit={handleSubmittionLogin}>
-        <DivLogin>
-          <TextField
-            label="E-mail"
-            variant="outlined" 
-            style={{ width: 400 }} 
-            id="email" 
-            name="email"
-            type="email" 
-            value={form.email}
-            onChange={handleInputChange}
-            inputProps={{
-                pattern: "[A-Za-z ]{5,}", 
-                required: true,
-                title: "Insira, no minimo, 5 letras"
-            }}
-          />
-          <TextField
-            label="Senha"
-            variant="outlined" 
-            style={{ width: 400 }} 
-            id="password" 
-            name="password"
-            type="password" 
-            value={form.password}
-            onChange={handleInputChange}
-            inputProps={{
-                pattern: "[A-Za-z ]{5,}", 
-                required: true,
-                title: "Insira, no minimo, 5 letras"
-            }}
-          />
-        </DivLogin>
-        <DivButton>
-          <Button 
-            size="large" 
-            variant="contained"
-            style={{ width: 200 }}
-            onClick={onClickLogin}>
-              LOGIN
-          </Button>
-        </DivButton>
-        <DivButton>
-          <Button 
-            size="small"
-            color="primary"
-            variant="contained"
-            style={{ width: 200 }}
-            onClick={() => goToSignUp(history)}>
-              Não tem cadastro? Clique aqui!
-          </Button>
-        </DivButton>
-      </form>
-
-    </div>
+    <Container>
+      <DivLogin>
+        <LogoLogin alt={'Logo'} src={LabEddit}/>
+        <form noValidate={false} id={"login_form"}>
+            <TextField
+              label="E-mail"
+              variant="outlined" 
+              fullWidth
+              margin="normal"
+              autoFocus
+              required
+              id="email" 
+              name="email"
+              type="email" 
+              value={form.email}
+              onChange={handleInputChange}
+            />
+            <TextField
+              label="Senha"
+              variant="outlined" 
+              fullWidth
+              margin="normal"
+              required
+              id="password" 
+              name="password"
+              type="password" 
+              value={form.password}
+              onChange={handleInputChange}
+            />
+          <DivButton>
+            <Button 
+              size="large" 
+              color="primary"
+              variant="contained"
+              type="submit"
+              style={{ width: 200 }}
+              onClick={onClickLogin}>
+                LOGIN
+            </Button>
+          </DivButton>
+          <DivButton>
+            <Button 
+              size="large"
+              color="primary"
+              style={{ width: 400 }}
+              onClick={() => goToSignUp(history)}>
+                Não tem cadastro? Clique aqui!
+            </Button>
+          </DivButton>
+        </form>
+      </DivLogin>
+    </Container>
 
   )
 }

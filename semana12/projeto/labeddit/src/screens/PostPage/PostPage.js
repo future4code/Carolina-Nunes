@@ -1,62 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useHistory } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react'
+import { useHistory, useParams } from "react-router-dom"
 import { goToFeed } from '../../routes/Coordinator'
+import useProtectedPage from '../../hooks/useProtectedPage'
+import useRequestData from '../../hooks/useRequestData'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import Loading from '../../components/Loading/Loading'
 import {
   DivPost,
+  CardPost
 } from './Styled'
 import {
-  Card, 
   CardActionArea, 
+  CardActions,
   CardContent, 
   Typography,
   Button,
   Divider,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 800,
-  },
-});
-
 const PostPage = () => {
-  const classes = useStyles();
+  useProtectedPage()
   const history = useHistory()
+  const {id} = useParams()
+  const post = useRequestData([], `/posts/${id}`)
+  console.log(post)
+
+  const renderDetail = () => {
+    return(
+      <div>
+        <CardPost variant="outlined">
+          <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+              {post.title}
+            </Typography>
+            <Typography gutterBottom variant="subtitle2" component="h2">
+                Postado por: {post.username}
+            </Typography>
+            <Typography variant="body1" color="textSecondary" component="p">
+              {post.text}
+            </Typography>
+              </CardContent>
+            </CardActionArea>
+            <Divider variant="middle"/>
+            <CardActions>
+              <ArrowUpwardIcon
+                  // onClick={this.onClickCurtida}
+                  // valorContador={this.state.numeroCurtidas}
+              />
+              <ArrowDownwardIcon
+                  // onClickIcone={this.onClickComentario}
+                  // valorContador={this.state.numeroComentarios}
+              />
+            </CardActions>
+        </CardPost>
+        
+
+      </div>
+    )
+  }
 
 
   return (
     <DivPost>
-      <Card variant="outlined" className={classes.root}>
-          <CardContent>
-            <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
-              Usuário
-            </Typography>
-          </CardContent>
-          <Divider variant="middle"/>
-          <CardContent>
-            <Typography variant="body2" component="p">
-              Post
-            </Typography>
-          </CardContent>
-          <CardActionArea>
-          <Divider variant="middle"/>
-          <ArrowUpwardIcon
-            // onClick={this.onClickCurtida}
-            // valorContador={this.state.numeroCurtidas}
-          />
-          <ArrowDownwardIcon
-            // onClickIcone={this.onClickComentario}
-            // valorContador={this.state.numeroComentarios}
-          />
-          </CardActionArea>
-      </Card>
-      <Typography>Comentários</Typography>
-      <Divider variant="middle" />
-      <br></br>
+      {post ? renderDetail() : <Loading/>}
       <Button color="primary" variant="contained" onClick={() => goToFeed(history)} size="large">Voltar</Button>
 
     </DivPost>
