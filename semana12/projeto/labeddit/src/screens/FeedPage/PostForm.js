@@ -5,11 +5,13 @@ import useForm from '../../hooks/useForm'
 import {
   TextField,
   Button,
+  CircularProgress
 } from '@material-ui/core';
 
 
 const PostForm = (props) => {
   const history = useHistory()
+  const [isLoading, setIsLoading] = useState(false)
   const {form, handleInputChange} = useForm({
     text: "",
     title: ""
@@ -21,7 +23,7 @@ const PostForm = (props) => {
     const isValid = element.checkValidity()
     element.reportValidity()
     if (isValid){
-      addPost(form, history)
+      addPost(form, history, setIsLoading)
     }
   }
 
@@ -57,7 +59,7 @@ const PostForm = (props) => {
               variant="contained"
               style={{ width: 200 }}
               onClick={onClickAddPost}>
-              POSTAR
+                {isLoading ? <CircularProgress color={'inherit'} size={24}/> : <>Postar</>}
             </Button>
         </form>
     </div>

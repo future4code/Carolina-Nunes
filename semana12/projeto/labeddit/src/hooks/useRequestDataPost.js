@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl } from '../constants/urls'
 
-const useRequestData = (initialData, endpoint) => {
+const useRequestDataPost = (initialData, endpoint) => {
   const [data, setData] = useState(initialData)
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const useRequestData = (initialData, endpoint) => {
       }
     })
       .then((response) => {
-        setData(response.data.posts)
+        setData(response.data.post)
         console.log(response)
       })
       .catch((error) => {
@@ -24,5 +24,4 @@ const useRequestData = (initialData, endpoint) => {
   return (data)
 }
 
-export default useRequestData
-
+export default useRequestDataPost

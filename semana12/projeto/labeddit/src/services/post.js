@@ -4,7 +4,9 @@ import { goToFeed } from '../routes/Coordinator'
 
 export const addPost = (body, history) => {
     axios.post(`${baseUrl}/posts`, body, {
-        Authorization: localStorage.getItem("token")
+        headers: {
+            Authorization: localStorage.getItem("token")
+        }
     })
         .then((response) => {
             alert("Post criado com sucesso!")
