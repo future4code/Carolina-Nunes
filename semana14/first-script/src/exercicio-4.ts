@@ -24,3 +24,4 @@ const pokemon3: pokemon = {
 
 // a. Dei o comando: tsc exercicio-4.ts
 // b. Sim, precisei estar dentro da pasta src
+// d. alguns itens estavam comentados
