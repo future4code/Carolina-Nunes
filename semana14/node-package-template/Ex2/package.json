@@ -1,0 +1,12 @@
+{
+  "name": "ex2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "exercicio2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-ex2": "node exercicio2.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
