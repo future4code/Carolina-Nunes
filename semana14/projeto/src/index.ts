@@ -36,6 +36,7 @@ let clientes: DadosCliente[] = [
 ]
 
 app.post("/users", (req: Request, res: Response): void=>{
+    
 
     try{
 
