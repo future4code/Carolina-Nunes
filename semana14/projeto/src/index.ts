@@ -1,76 +1,70 @@
-import express, {Request, Response} from 'express'
+import express, {Express, Request, Response} from 'express'
 import cors from 'cors'
 
-const app = express()
+const app: Express = express()
 app.use(express.json())
 app.use(cors())
 
-type DadosCliente = {
-    nome: string,
+type Account = {
+    name: string,
     cpf: string,
-    dataDeNascimento: string,
-    saldo: number,
-    extrato: Extrato[]
+    dateOfBirth: Date,
+    balance: number,
+    statement: Array<Transaction>
 }
 
-type Extrato = {
-    valor: number,
-    data: string,
-    descricao: string
+type Transaction = {
+    value: number,
+    date: Date,
+    description: string
 }
 
-let clientes: DadosCliente[] = [
-    {
-        nome: "Carolina",
-        cpf: "99099099099",
-        dataDeNascimento: "07/12/1982",
-        saldo: 0,
-        extrato: [
-            {
-                valor: 10,
-                data: "20/02/2020",
-                descricao: "deposito"
-            }
-        ]
-    }
-]
+const accounts: Account[] = []
 
 app.post("/users", (req: Request, res: Response): void=>{
     
-
     try{
 
-        const {nome, cpf, dataDeNascimento, saldo} = req.body;
+        const {name, cpf, dateOfBirthAsString} = req.body;
 
-        const cliente: DadosCliente = {
-            nome: nome,
-            cpf: cpf,
-            dataDeNascimento: dataDeNascimento,
-            saldo: saldo,
-            extrato: []
+        const [day, month, year] = dateOfBirthAsString.split("/")
+        const dateOfBirth: Date = new Date(`${year}-${month}-${day}`)
+
+        const ageInMiliseconds: number = Date.now() - dateOfBirth.getTime()
+        const ageInYears: number = ageInMiliseconds / 1000 / 60 / 60 / 24 / 365
+
+        if (ageInYears < 18){
+            res.statusCode = 406
+            throw new Error("Idade deve ser maior que 18 anos")
         }
 
-        clientes.push(cliente);
+        accounts.push({
+            name: name, 
+            cpf: cpf, 
+            dateOfBirth: dateOfBirth, 
+            balance: 0,
+            statement: []
+        })
 
-        res.status(200).send({
+        res.status(201).send({
             message: "Conta criada com sucesso!"
         })
     } catch(error){
-        res.status(400).send({
-            message: "Erro ao criar conta"
-        });
+        console.log(error)
+        res.send(error.message);
     }
 });
 
 app.get("/users", (req: Request, res: Response): void =>{
 
-
     try{
-        res.status(200).send(clientes);
+        if (!accounts.length){
+            res.statusCode = 404
+            throw new Error("Nenhuma conta encontrada")
+        }
+        res.status(200).send(accounts);
     }catch(error){
-        res.status(400).send({
-            message: "Error searching for users"
-        });
+        res.send(error.message);
     }
 });
 
