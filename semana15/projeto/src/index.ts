@@ -7,7 +7,7 @@ import { createUser } from './endpoint/createUser';
 
 dotenv.config();
 
-const connection = knex({
+export const connection = knex({
   client: "mysql",
   connection: {
     host: process.env.DB_HOST,
