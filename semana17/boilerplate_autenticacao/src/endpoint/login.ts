@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { generateToken } from "../services/generateToken";
+import { generateToken } from "../services/authenticator";
 import { User } from "../types";
 import { getUserByEmail } from "../data/getUserByEmail";
 

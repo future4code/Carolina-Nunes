@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { getToken } from "../services/getToken";
 import { getUserByIdData } from "../data/getUserByIdData";
+import { getToken } from "../services/authenticator";
+
 
 
 export const getUserById = async (

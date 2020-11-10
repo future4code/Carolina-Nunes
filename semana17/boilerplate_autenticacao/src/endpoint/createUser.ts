@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { generateId } from "../services/generateId";
 import { createUserData } from "../data/createUserData";
-import { generateToken } from "../services/generateToken";
+import { generateToken } from "../services/authenticator";
 
 export const createUser = async (
     req: Request, 
