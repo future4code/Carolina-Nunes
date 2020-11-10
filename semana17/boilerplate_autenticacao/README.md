@@ -155,6 +155,20 @@ export const login = async (
 }
 ```
 
+### Exercício 7
+
+```
+export const getToken = (
+    token: string
+): AuthenticationData => {
+    return jwt.verify(
+        token,
+        process.env.JWT_KEY as string
+    ) as AuthenticationData
+}
+```
+
+
 
 
 
