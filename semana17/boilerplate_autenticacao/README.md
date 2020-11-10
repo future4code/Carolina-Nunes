@@ -25,7 +25,7 @@ CREATE TABLE aula50_User (
 ```
 
 c) 
-query:
+*query:*
 ```
 export const createUserData = async (
     id: string, 
@@ -40,32 +40,23 @@ export const createUserData = async (
       .into("aula50_User");
 };
 ```
-endpoint: 
+
+### Exercício 3
+
+a) Transforma em string o parâmetro para que o formato seja aceito no sign().
+
+b) 
 ```
-export const createUser = async (
-    req: Request, 
-    res: Response
-) => {
-    
-    const { email, password } = req.body
+const expiresIn = "1min";
 
-    try {
-        if (!email || !password) {
-            res.status(404).send({message: "Preencha todos os campos"})
+export const generateToken = (input: AuthenticationData): string => {
+    return jwt.sign(
+        input,
+        process.env.JWT_KEY as string,
+        {
+            expiresIn: process.env.JWT_EXPIRES_IN
         }
-        const id: string = generateId()
-
-        await createUserData(
-            id,
-            email,
-            password
-        )
-        res.status(200).send({message: "Usuário criado com sucesso!"})
-
-    } catch (error) {
-        res.status(400).send({message: error.message})
-    }
-
+    )
 }
 ```
 
