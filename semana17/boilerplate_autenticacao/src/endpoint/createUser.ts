@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { generateId } from "../services/generateId";
 import { createUserData } from "../data/createUserData";
 import { generateToken } from "../services/authenticator";
+import { hash } from "bcryptjs";
 
 export const createUser = async (
     req: Request, 
@@ -19,10 +20,13 @@ export const createUser = async (
         }
         const id = generateId()
 
+        const cypherPassword = await hash(password)
+
         await createUserData(
             id,
             email,
-            password
+            password,
+            cypherPassword
         )
         
         const token = generateToken({id})
