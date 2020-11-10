@@ -102,6 +102,59 @@ export const createUser = async (
 ### Exercício 5
 
 a)
+```
+export const getUserByEmailData = async(
+    email: string
+    ): Promise<User> => {
+
+    const result = await connection
+      .select("*")
+      .from("aula50_User")
+      .where({ email });
+ 
+    return result[0];
+}
+```
+
+### Exercício 6
+
+a b)
+```
+export const login = async (
+    req: Request, 
+    res: Response
+) => {
+    
+    const { email, password } = req.body
+
+    try {
+        if (!email || email.indexOf("@") === -1) {
+            res.status(404).send({message: "E-mail inválido"})
+        }
+
+        const user: User = await getUserByEmail(email)
+
+        if (!user) {
+            res.status(404).send({message: "Usuário não encontrado ou senha incorreta"})
+        }
+
+        if (user.password !== password){
+            res.status(404).send({message: "Usuário não encontrado ou senha incorreta"})
+        }
+        
+        const token = generateToken({id: user.id})
+        res.status(200).send({
+            token,
+            message: "Login realizado com sucesso!"
+        })
+
+    } catch (error) {
+        res.status(400).send({message: error.message})
+    }
+
+}
+```
+
 
 
 
