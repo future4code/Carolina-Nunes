@@ -2,7 +2,7 @@ import { User } from '../types'
 import { connection } from "../connection";
 
 
-export const getUserByEmail = async(
+export const getUserByEmailData = async(
     email: string
     ): Promise<User> => {
 

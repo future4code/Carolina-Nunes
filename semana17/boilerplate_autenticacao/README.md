@@ -159,3 +159,76 @@ export const getUserById = async (
 
 ### Exercício 5
 
+a) 
+*Query:*
+```
+export const deleteUserData = async (
+    id:string
+    ): Promise<any> => {
+        await connection
+            .delete()
+            .from('aula50_User')
+            .where({ id });
+}
+```
+
+*Endpoint:*
+```
+export const deleteUser = async (
+    req:Request, 
+    res:Response
+    ) => {
+
+        const token: string = req.headers.authorization as string
+        const AuthenticationData = getToken(token)
+
+        try {
+
+            if(AuthenticationData.role !== USER_ROLE.ADMIN){
+                res.status(404).send({message: "Usuário não autorizado"})
+            }
+
+            const id = req.params.id
+
+            const testUser = await getUserByIdData(id)
+
+            if(!testUser){
+                res.status(404).send({message: "Usuário não encontrado"})
+            }
+
+            await deleteUserData(id)
+
+            res.status(200).send({
+                message: "Usuário deletado com sucesso!"
+            })
+        } catch (error) {
+            res.status(400).send(error.message || error.sqlMessage)
+        }
+}
+```
+
+### Exercício 6
+
+*Query:*
+```
+export const getUserByEmailData = async(
+    email: string
+    ): Promise<User> => {
+
+    const result = await connection
+      .select("*")
+      .from("aula50_User")
+      .where({ email });
+ 
+    return result[0];
+}
+```
+
+*Endpoint:*
+```
+
+
+
+
+
+
