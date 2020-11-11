@@ -3,7 +3,9 @@ import { AuthenticationData } from "../types";
 
 const expiresIn = "1min";
 
-export const generateToken = (input: AuthenticationData): string => {
+export const generateToken = (
+    input: AuthenticationData
+    ): string => {
     return jwt.sign(
         input,
         process.env.JWT_KEY as string,
@@ -16,8 +18,12 @@ export const generateToken = (input: AuthenticationData): string => {
 export const getToken = (
     token: string
 ): AuthenticationData => {
-    return jwt.verify(
+    const payload = jwt.verify(
         token,
         process.env.JWT_KEY as string
     ) as AuthenticationData
+    return {
+        id: payload.id,
+        role: payload.role
+    }
 }
