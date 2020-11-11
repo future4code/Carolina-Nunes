@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
-import { generateToken } from "../services/generateToken";
+import { generateToken } from "../services/authenticator";
 import { User } from "../types";
-import { getUserByEmail } from "../data/getUserByEmail";
+import { getUserByEmailData } from "../data/getUserByEmailData";
+import { compare } from "../services/hashManager";
 
 export const login = async (
     req: Request, 
     res: Response
-) => {
+    ) => {
     
     const { email, password } = req.body
 
@@ -15,19 +16,24 @@ export const login = async (
             res.status(404).send({message: "E-mail inválido"})
         }
 
-        const user: User = await getUserByEmail(email)
+        const user: User = await getUserByEmailData(email)
 
         if (!user) {
             res.status(404).send({message: "Usuário não encontrado ou senha incorreta"})
         }
 
-        if (user.password !== password){
+        const correctPassword: boolean = await compare(password, user.password)
+
+        if (!correctPassword){
             res.status(404).send({message: "Usuário não encontrado ou senha incorreta"})
         }
         
-        const token = generateToken({id: user.id})
+        const token = generateToken({
+            id: user.id,
+            role: user.role
+        })
         res.status(200).send({
-            token,
+            token: token,
             message: "Login realizado com sucesso!"
         })
 
