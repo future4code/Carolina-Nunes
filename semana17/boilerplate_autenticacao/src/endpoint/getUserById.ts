@@ -15,11 +15,16 @@ export const getUserById = async (
 
         const authenticationData = getToken(token);
 
+        if (authenticationData.role !== "NORMAL") {
+            throw new Error("Somente o usuário normal pode ter acesso à essa funcionalidade");
+          }
+
         const user = await getUserByIdData(authenticationData.id);
         
         res.status(200).send({
             id: user.id,
             email: user.email,
+            role: authenticationData.role
         })
 
     } catch (error) {
