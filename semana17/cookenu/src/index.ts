@@ -8,6 +8,7 @@ import { loginUser } from "./endpoints/loginUser";
 import { getUserProfile } from "./endpoints/getUserProfile";
 import { getUserById } from "./endpoints/getUserById";
 import { createRecipe } from "./endpoints/createRecipe";
+import { getRecipeById } from "./endpoints/getRecipeById";
 
 dotenv.config();
 
@@ -32,7 +33,7 @@ app.post('/login', loginUser)
 app.get('/user/profile', getUserProfile)
 app.get('/user/:id', getUserById)
 app.post('/recipe', createRecipe)
-app.get('/recipe/:id')
+app.get('/recipe/:id', getRecipeById)
 
 
 
