@@ -11,11 +11,10 @@ export default async function createUser(
 ) {
     try {
 
-        const {name, nickname, email, password, role} = req.body
+        const {name, email, password, role} = req.body
 
         if (
             !name ||
-            !nickname ||
             !email ||
             !password
         ) {
@@ -29,7 +28,6 @@ export default async function createUser(
         await createUserData(
             id,
             name,
-            nickname,
             email,
             hashPassword,
             role
@@ -40,11 +38,10 @@ export default async function createUser(
             role: req.body.role
          })
 
-        res
-            .status(200).send({
-               message:"Usuário criado!",
-               token
-            })
+        res.status(200).send({
+            message:"Usuário criado!",
+            token
+        })
 
     } catch (error) {
         res.status(400).send({message: error.message})

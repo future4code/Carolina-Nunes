@@ -3,7 +3,6 @@ import { connection } from "../index";
 export default async function createUserData(
     id: string,
     name: string,
-    nickname: string,
     email: string,
     password: string,
     role: string
@@ -11,7 +10,6 @@ export default async function createUserData(
     await connection.insert({
         id,
         name,
-        nickname,
         email,
         password,
         role
