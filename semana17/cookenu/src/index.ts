@@ -6,6 +6,7 @@ import { AddressInfo } from "net";
 import createUser from "./endpoints/createUser";
 import { loginUser } from "./endpoints/loginUser";
 import { getUserProfile } from "./endpoints/getUserProfile";
+import { getUserById } from "./endpoints/getUserById";
 
 dotenv.config();
 
@@ -28,7 +29,7 @@ app.use(cors());
 app.post('/signup', createUser)
 app.post('/login', loginUser)
 app.get('/user/profile', getUserProfile)
-app.get('/user/:id')
+app.get('/user/:id', getUserById)
 app.post('/recipe')
 app.get('/recipe/:id')
 

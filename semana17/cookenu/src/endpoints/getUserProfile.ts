@@ -16,7 +16,7 @@ export const getUserProfile = async (
             res.status(404).send({message: "Não autorizado"})
         }
 
-        const dataUser: User[] | undefined = await getUserProfileData(tokenData.id) 
+        const dataUser: User[] = await getUserProfileData(tokenData.id) 
         if(!dataUser){
             res.status(404).send({message: "Usuário não encontrado"})
         }
