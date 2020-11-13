@@ -26,7 +26,7 @@ app.use(cors());
 
 app.post('/signup', createUser)
 app.post('/login', loginUser)
-app.get('/user/profile')
+app.get('/user/profile', userProfile)
 app.get('/user/:id')
 app.post('/recipe')
 app.get('/recipe/:id')
