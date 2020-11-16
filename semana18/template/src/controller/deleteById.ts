@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { getTokenData } from "../services/authenticator";
-import { deleteByIdData } from "../data/deleteByIdData";
+import { deleteByIdBusiness } from "../business/deleteByIdBusiness";
 
 
 export default async function deleteById(
@@ -9,20 +8,13 @@ export default async function deleteById(
 ) {
    try {
 
-    const token = req.headers.authorization as string;
-    const authenticationData = getTokenData(token);
-    const user = await deleteByIdData(req.params.id)
-
-    if (authenticationData.role !== 'ADMIN') {
-      res.status(404).send({message: "Ação não autorizada"})
-    }
-    if (!authenticationData) {
-      res.status(404).send({message: "Não autorizado"})
-    }
-    if (!user) {
-      res.status(404).send({message: "Usuário não encontrado"})
+    const input = {
+      id: req.params.id,
+      token: req.headers.authorization
     }
 
+    await deleteByIdBusiness(input)
+    
     res.status(200).send({ message: "Usuário deletado com sucesso!" })
 
    } catch (error) {

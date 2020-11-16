@@ -7,7 +7,6 @@ export const loginUser = async (
     res:Response
     ) => {
 
-        
         try {
             
             const input = {

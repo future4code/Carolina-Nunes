@@ -7,12 +7,9 @@ export default async function getAllUsers(
    res: Response
 ) {
    try {
-    const input = {
-      id: req.params.id,
-      token: req.headers.authorization
-    }
 
-    const user = await getAllUsersBusiness(input)
+      const token = req.headers.authorization
+      const user = await getAllUsersBusiness(token)
     
 
     res.status(200).send(user)

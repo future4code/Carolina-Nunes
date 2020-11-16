@@ -11,21 +11,21 @@ export const loginUserBusiness = async (input: any): Promise<string> => {
             throw new Error("Preencha os campos e-mail e/ou senha")
         }
 
-        const user: User = await loginUserData(input.email)
+        const userDB = await loginUserData(input.email)
 
         if(!input.user){
             throw new Error("Usuário não encontrado")
         }
 
-        const correctPassword: boolean = await compare(input.password, user.password)
+        const correctPassword: boolean = await compare(input.password, userDB.password)
 
         if(!correctPassword){
             throw new Error("Senha incorreta")
         }
 
         const token: string = generateToken({
-            id: user.id,
-            role: user.role
+            id: userDB.id,
+            role: userDB.role
         })
 
         return token

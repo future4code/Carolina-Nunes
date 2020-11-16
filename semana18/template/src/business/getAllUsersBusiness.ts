@@ -1,7 +1,7 @@
 import { getTokenData } from "../services/authenticator";
 import { getAllUsersData } from "../data/getAllUsersData";
 
-export const getAllUsersBusiness = async (input: any): Promise<string> => {
+export const getAllUsersBusiness = async (input: any) => {
 
     try{
 
@@ -16,6 +16,8 @@ export const getAllUsersBusiness = async (input: any): Promise<string> => {
         if (!authenticationData) {
             throw new Error("Não autorizado");
         }
+
+        return users
 
     } catch(error){
         throw new Error("Erro inteligível do banco")
