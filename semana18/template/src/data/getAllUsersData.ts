@@ -1,4 +1,4 @@
-import { connection } from "..";
+import { connection } from "./connection";
 
 export const getAllUsersData = async () => {
     const result = await connection.raw(`

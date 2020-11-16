@@ -1,4 +1,4 @@
-import { connection } from "../index";
+import { connection } from "./connection";
 import { USER_ROLES } from "../types";
 
 export const createUserData = async (
@@ -8,11 +8,17 @@ export const createUserData = async (
     password: string,
     role: USER_ROLES
 ) => {
-    await connection.insert({
-        id,
-        name,
-        email,
-        password,
-        role
-    }).into('User_Arq')
+
+    try {
+        await connection.insert({
+            id,
+            name,
+            email,
+            password,
+            role
+        }).into('User_Arq')
+
+    } catch(error) {
+        throw new Error ("Erro de banco de dados: " + error.sqlMessage)
+    }
 } 

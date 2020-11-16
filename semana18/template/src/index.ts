@@ -1,30 +1,21 @@
 import express from 'express'
-import knex from 'knex'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { createUser } from './controller/createUser'
+import { loginUser } from './controller/loginUser'
+import getAllUsers from './controller/getAllUsers'
+import deleteById from './controller/deleteById'
 
 
 dotenv.config()
-
-export const connection = knex({
-   client: 'mysql',
-   connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      port: 3306
-   }
-})
-
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 
 app.put('/signup', createUser)
-app.post('/login', login)
-app.get('/all', getAll)
+app.post('/login', loginUser)
+app.get('/all', getAllUsers)
 app.delete('/:id', deleteById)
 
 app.listen(3003, () => {
