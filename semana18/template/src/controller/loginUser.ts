@@ -1,8 +1,5 @@
 import { Request, Response } from 'express'
-import { User } from '../types'
-import { loginUserData } from '../data/loginUserData'
-import { compare } from '../services/hashManager'
-import { generateToken } from '../services/authenticator'
+import { loginUserBusiness } from '../business/loginUserBusiness'
 
 
 export const loginUser = async (
@@ -10,34 +7,21 @@ export const loginUser = async (
     res:Response
     ) => {
 
-    const { email, password } = req.body
+        
+        try {
+            
+            const input = {
+                email: req.body.email, 
+                password: req.body.password, 
+            } 
 
-    try {
-        if(!email || !password){
-            res.status(404).send({message: "Preencha os campos e-mail e/ou senha"})
+            const token = await loginUserBusiness(input)
+        
+            res.status(200).send({
+                token: token,
+                message: "Login realizado com sucesso!"
+            })
+        } catch (error) {
+            res.status(400).send({message: error.message})        
         }
-
-        const user: User = await loginUserData(email)
-
-        if(!user){
-            res.status(404).send({message: "Usuário não encontrado"})
-        }
-
-        const correctPassword: boolean = await compare(password, user.password)
-
-        if(!correctPassword){
-            res.status(404).send({message: "Senha incorreta"})
-        }
-
-        const token:string = generateToken({
-            id: user.id,
-            role: user.role
-        })
-        res.status(200).send({
-            token: token,
-            message: "Login realizado com sucesso!"
-        })
-    } catch (error) {
-        res.status(400).send({message: error.message})        
-    }
 }  

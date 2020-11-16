@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { getTokenData } from "../services/authenticator";
-import { getAllUsersData } from "../data/getAllUsersData";
+import { getAllUsersBusiness } from "../business/getAllUsersBusiness";
 
 
 export default async function getAllUsers(
@@ -8,18 +7,13 @@ export default async function getAllUsers(
    res: Response
 ) {
    try {
-
-    const token = req.headers.authorization as string;
-    const authenticationData = getTokenData(token);
-    const user = await getAllUsersData()
-
-    if (!token) {
-      res.status(404).send({message: "Não autorizado"})
+    const input = {
+      id: req.params.id,
+      token: req.headers.authorization
     }
 
-    if (!authenticationData) {
-      res.status(404).send({message: "Não autorizado"})
-    }
+    const user = await getAllUsersBusiness(input)
+    
 
     res.status(200).send(user)
 
