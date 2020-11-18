@@ -1,4 +1,3 @@
-import { User } from "../types"
 import { loginUserData } from "../data/loginUserData"
 import { compare } from "bcryptjs"
 import { generateToken } from "../services/authenticator"

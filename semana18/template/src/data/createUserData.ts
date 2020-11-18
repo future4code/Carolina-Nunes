@@ -1,5 +1,5 @@
 import { connection } from "./connection";
-import { USER_ROLES } from "../types";
+import { USER_ROLES } from "../model/types";
 
 export const createUserData = async (
     id: string,
