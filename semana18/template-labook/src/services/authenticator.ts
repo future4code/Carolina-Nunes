@@ -7,23 +7,32 @@ export type AuthenticationData = {
    role: USER_ROLES
 }
 
-export function generateToken(
-   payload: AuthenticationData
-): string {
-   return jwt.sign(
-      payload,
-      process.env.JWT_KEY as string,
-      {
-         expiresIn: "24min"
+class Authenticator {
+   public generateToken(
+      payload: AuthenticationData
+   ): string {
+      return jwt.sign(
+         payload,
+         process.env.JWT_KEY as string,
+         {
+            expiresIn: "24min"
+         }
+      )
+   }
+
+   public getTokenData(
+      token: string
+   ): AuthenticationData {
+      const result = jwt.verify(
+         token,
+         process.env.JWT_KEY as string
+      ) as AuthenticationData
+
+      return {
+         id: result.id,
+         role: result.role
       }
-   )
+   }
 }
 
-export function getTokenData(
-   token: string
-): AuthenticationData {
-   return jwt.verify(
-      token,
-      process.env.JWT_KEY as string
-   ) as AuthenticationData
-}
+export default new Authenticator()
