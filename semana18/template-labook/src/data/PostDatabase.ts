@@ -1,38 +1,84 @@
-import { connection } from "./connection"
-import { POST_TYPES } from "../model/Post"
+import { DataBase } from "./connection"
+import { POST_TYPES, Post } from "../model/Post"
 
-class PostDatabase{
-    private tableName: string = 'labook_posts'
+export class PostDatabase extends DataBase{
+
+    private static tableName: string = 'labook_posts'
 
     public async createPost(
         id: string,
         photo: string,
         description: string,
-        type: POST_TYPES,
-        createdAt: Date,
+        type: string,
+        createdAt: string,
         authorId: string,
-    ) {
-        await connection
-            .insert({
-                id, 
-                photo,
-                description,
-                type,
-                createdAt,
-                authorId
-            }).into(this.tableName)
+        ): Promise<void> {
+
+        try {
+            await this.getConnection()
+                .insert({
+                    id, 
+                    photo,
+                    description,
+                    type,
+                    createdAt,
+                    authorId
+                }).into(PostDatabase.tableName)
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message)
+        }
     }
 
     public async getPostById(
-        id: string
-    ): Promise<any> {
-        const post = await connection
-        .select("*")
-        .from (this.tableName)
-        .where({ id })
+        authorId: string
+        ): Promise<any> {
 
-        return post[0][0]
+        try {
+            const postArray: Post[] = []
+
+            const result = await this.getConnection()
+            .raw(`
+            SELECT p.* FROM ${PostDatabase.tableName} p
+            JOIN labook_friends f
+            ON p.authorId = f.id_responder
+            WHERE f.id_requester = "${authorId}"
+            ORDER BY p.createdAt DESC;
+            `)
+
+            for(let post of result[0]) {
+                postArray.push(Post.toPostModel(post));
+            }
+
+            return postArray;
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);  
+        }
     }
-}
 
-export const postDatabase: PostDatabase = new PostDatabase()
+    public async getFeedByType(type: POST_TYPES): Promise<Post[]>{
+
+        try {
+            const postArray: Post[] = [];
+
+            const result = await this.getConnection()
+            .raw(`
+            SELECT p.* FROM ${PostDatabase.tableName} p
+            WHERE type = "${type}"
+            ORDER BY p.createdAt DESC;
+            `)
+
+            for(let post of result[0]) {
+                postArray.push(Post.toPostModel(post));
+            }
+
+            return postArray;
+            
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);   
+        }
+
+    }
+
+}

@@ -1,9 +1,8 @@
 import { v4 } from "uuid"
 
-class IdGenerator {
-   public generateId = (): string => {
-      return v4()
-   }
-}
+export class IdGenerator{
 
-export default new IdGenerator() 
+    generate(): string{
+        return v4();
+    }
+}

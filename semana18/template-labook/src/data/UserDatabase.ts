@@ -1,27 +1,110 @@
-import { connection } from "./connection"
+import { DataBase } from "./connection"
 import { User } from "../model/User"
 
-class UserDatabase{
-    private tableName: string = 'labook_users'
+export class UserDatabase extends DataBase{
 
-    public getTableName = (): string => this.tableName
+    private static tableName = 'labook_users'
+    private static friendTableName = 'labook_friend'
 
     public async signup(
-        user: User
-    ) {
+        id: string,
+        name: string,
+        email: string,
+        password: string,
+        ){
+
         try{
-            await connection
+            await super.getConnection()
                 .insert({
-                    id: user.getId(), 
-                    name: user.getName(),
-                    email: user.getEmail(),
-                    password: user.getPassword(),
-                    role: user.getRole()
-                }).into(this.tableName)
+                    id,
+                    name,
+                    email,
+                    password,
+                }).into(UserDatabase.tableName)
+
         } catch(error) {
-            throw new Error("Erro de banco de dados: " + error.sqlMessage)
+            throw new Error("Erro de banco de dados: " + error.sqlMessage || error.message)
         }
     }
-}
 
-export default new UserDatabase()
+    public async getUserByEmail(
+        email: string
+        ): Promise<User> {
+
+            try {
+
+                const result = await this.getConnection()
+                    .select("*")
+                    .from(UserDatabase.tableName)
+                    .where({ email })
+                
+                return User.toUserModel(result[0])
+
+            } catch(error) {
+                throw new Error("Erro de banco de dados: " + error.sqlMessage || error.message)
+            }
+    }
+
+    public async addFriend(
+        authorId: string, 
+        targetId: string
+        ): Promise<void> {
+
+        try {
+            await this.getConnection().raw(`
+            INSERT INTO ${UserDatabase.friendTableName}
+            VALUES
+            ("${authorId}", "${targetId}"),
+            ("${targetId}", "${authorId}")
+            `);
+
+        } catch (error) {
+            throw new Error("Erro de banco de dados: " + error.sqlMessage || error.message);
+        }
+    }
+
+    public async unfriend(
+        authorId: string, 
+        targetId: string
+        ): Promise<void> {
+
+        try {
+            await this.getConnection().raw(`
+            DELETE FROM ${UserDatabase.friendTableName}
+            WHERE
+            (id_requester = "${authorId}" AND id_responder = "${targetId}")
+            OR
+            (id_requester = "${targetId}" AND id_responder = "${authorId}");
+            `);
+
+        } catch (error) {
+            throw new Error("Erro de banco de dados: " + error.sqlMessage || error.message);
+        }
+    }
+
+    public async checkFriendship(
+        authorId: string, 
+        targetId: string
+        ): Promise<boolean>{
+        
+            try {
+                
+                const result = await this.getConnection().raw(`
+                    SELECT * FROM ${UserDatabase.friendTableName}
+                    WHERE
+                    (id_requester = "${authorId}" AND id_responder = "${targetId}")
+                    OR
+                    (id_requester = "${targetId}" AND id_responder = "${authorId}");
+                    `);
+
+                if(result[0][0]){
+                    return true;
+                }
+
+                return false;
+
+        } catch (error) {
+            throw new Error("Erro de banco de dados: " + error.sqlMessage || error.message);
+        }   
+    }
+}

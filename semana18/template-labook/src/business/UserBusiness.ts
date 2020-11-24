@@ -1,63 +1,63 @@
-import hashManager from "../services/hashManager";
-import idGenerator from "../services/idGenerator";
-import { User, CreateUserOutput, CreateUserInput } from "../model/User";
-import authenticator from "../services/authenticator";
-import userDatabase from "../data/UserDatabase"
+import { HashManager } from "../services/HashManager";
+import { User, LoginInput, FriendInput } from "../model/User";
+import { UserDatabase } from "../data/UserDatabase"
+import { IdGenerator } from "../services/IdGenerator";
 
-class UserBusiness {
+
+export class UserBusiness {
 
     public async signup(
-        input: CreateUserInput
+        name: string,
+        email: string,
+        password: string,
         ): Promise<string> {
             
-            try {
+        const idGenerator = new IdGenerator();
+        const id = idGenerator.generate();
 
-                if (
-                    !input.name ||
-                    !input.role
-                ) {
-                    throw new Error("Preencha todos os campos")
-                }
-        
-                if (!input.email || input.email.indexOf("@") === -1) {
-                    throw new Error("Email inválido")
-                }
-        
-                if (!input.password || input.password.length < 6) {
-                    throw new Error("Senha inválida")
-                }
+        const userDatabase = new UserDatabase()
+        await userDatabase.signup(id, name, email, password)
 
-                const id: string = idGenerator.generateId()
+        return id
+    }
 
-                const cypherPassword = await hashManager.hash(input.password);
+    public async getUserByEmail(
+        input: LoginInput
+        ){
+        
+        const userDatabase = new UserDatabase()
+        const user: User = await userDatabase.getUserByEmail(input.email)
 
-                const newUser: User = new User(
-                    id,
-                    input.name,
-                    input.email,
-                    cypherPassword,
-                    input.role
-                )
-        
-                await userDatabase.signup(newUser)
-        
-                let output: CreateUserOutput;
-        
-                const token = authenticator.generateToken({
-                    id,
-                    role: newUser.getRole()
-                });
-        
-                return token;
-        
+        const hashManager = new HashManager()
+        const hashCompare = await hashManager.compare(input.password, user.getPassword())
 
-            } catch(error) {
-                if (error.sqlMessage.includes("Duplicate entry")) {
-                    throw new Error("Este usuário já existe!");
-                 }
-                 throw new Error(error.sqlMessage || error.message);
-            }
+        if(!hashCompare){
+            throw new Error("Senha inválida")
         }
-}
 
-export default new UserBusiness()
+        return user
+
+    }
+                
+    public async addFriend(input: FriendInput){
+
+        const userDatabase = new UserDatabase();
+        const friend = await userDatabase.checkFriendship(input.authorId, input.targetId);
+        if(!friend){
+            await userDatabase.addFriend(input.authorId, input.targetId);
+        }else{
+            throw new Error("Vocês já são amigos")
+        }
+    }
+
+    public async unfriend(input: FriendInput){
+
+        const userDatabase = new UserDatabase();
+        const friend = await userDatabase.checkFriendship(input.authorId, input.targetId);
+        if(friend){
+            await userDatabase.unfriend(input.authorId, input.targetId);
+        }else{
+            throw new Error("Vocês não são amigos");
+        }
+    }
+}

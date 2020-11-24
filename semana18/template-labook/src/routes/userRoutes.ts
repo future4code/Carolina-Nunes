@@ -1,7 +1,11 @@
 import express from "express";
-import userController from "../controller/UserController"
+import { UserController } from "../controller/UserController"
 
 export const userRouter = express.Router();
 
-userRouter.post("/users/signup", userController.signup);
-// userRouter.post("/users/login", userController.login);
+const userController = new UserController();
+
+userRouter.post("/signup", userController.signup);
+userRouter.post("/login", userController.login);
+userRouter.post("/befriend", userController.addFriend);
+userRouter.post("/unfriend", userController.unfriend);
