@@ -1,29 +1,32 @@
 import * as jwt from "jsonwebtoken"
-import { USER_ROLES } from "../model/User"
 
-
-export type AuthenticationData = {
-   id: string,
-   role: USER_ROLES
+export class Authenticator {
+   public generateToken(input: AuthenticationData,
+     expiresIn: string = process.env.ACCESS_TOKEN_EXPIRES_IN!): string {
+     const token = jwt.sign(
+       {
+         id: input.id,
+         role: input.role
+       },
+       process.env.JWT_KEY as string,
+       {
+         expiresIn,
+       }
+     );
+     return token;
+   }
+ 
+   public getData(token: string): AuthenticationData {
+     const payload = jwt.verify(token, process.env.JWT_KEY as string) as any;
+     const result = {
+       id: payload.id,
+       role: payload.role
+     };
+     return result;
+   }
 }
-
-export function generateToken(
-   payload: AuthenticationData
-): string {
-   return jwt.sign(
-      payload,
-      process.env.JWT_KEY as string,
-      {
-         expiresIn: "24min"
-      }
-   )
-}
-
-export function getTokenData(
-   token: string
-): AuthenticationData {
-   return jwt.verify(
-      token,
-      process.env.JWT_KEY as string
-   ) as AuthenticationData
+ 
+interface AuthenticationData {
+   id: string;
+   role?: string;
 }

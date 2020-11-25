@@ -1,8 +1,11 @@
 import express from "express";
+import { UserController } from "../controller/UserController"
 
 export const userRouter = express.Router();
 
-// userRouter.post("/signup", createUser);
-// userRouter.post("/login", login);
-// userRouter.post("/edit", editUser);
-// userRouter.get("/:id", getUserById);
+const userController = new UserController();
+
+userRouter.post("/signup", userController.signup);
+userRouter.post("/login", userController.login);
+userRouter.post("/befriend", userController.addFriend);
+userRouter.post("/unfriend", userController.unfriend);
