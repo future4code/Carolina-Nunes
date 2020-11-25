@@ -1,3 +1,5 @@
+# AULA 58 #
+
 ### Exercício 1
 
 a)
@@ -303,7 +305,196 @@ describe('Exercício 3', () => {
 }) 
 ```
 
-### Exercício 6
+# AULA 59 #
+
+### Exercício 1
+
+a) 
+```
+export interface Character {
+    name: string,
+    life: number,
+    strength: number,
+    defense: number
+};
+```
+
+b)
+```
+export function validateCharacter(input: Character): boolean {
+    if (
+        !input.name ||
+        !input.life ||
+        !input.strength ||
+        !input.defense
+    ) {
+        return false
+    };
+
+    if (
+        input.life <= 0 || 
+        input.strength <= 0 || 
+        input.defense <= 0
+    ) {
+        return false
+    };
+
+    return true;
+}; 
+```
+
+### Exercício 2
+
+```
+describe("Testing validateCharacter", () => {
+    test("Should return false for empty name", () => {
+        const result = validateCharacter({
+            name: "",
+            life: 10,
+            strength: 500,
+            defense: 600
+        });
+
+        expect(result).toBe(false);
+    });
+
+    test("Should return false for life 0", () => {
+        const result = validateCharacter({
+            name: "Dino",
+            life: 0,
+            strength: 1700,
+            defense: 400
+        });
+
+        expect(result).toBe(false);
+    });
+
+    test("Should return false if strength is equal to 0", () => {
+        const result = validateCharacter({
+            name: "Dino",
+            life: 170,
+            strength: 0,
+            defense: 400
+        });
+
+        expect(result).toBe(false);
+    });
+
+    test("Should return false if defense is equal to 0", () => {
+        const result = validateCharacter({
+            name: "Dino",
+            life: 600,
+            strength: 500,
+            defense: 0
+        });
+
+        expect(result).toBe(false);
+    });
+
+    test("Should return false if life or strength or defense is a negative value", () => {
+        const result = validateCharacter({
+            name: "Dino",
+            life: -300,
+            strength: 200,
+            defense: 400
+        });
+
+        expect(result).toBe(false);
+    });
+
+    test("Should return true for all valid inputs", () => {
+        const result = validateCharacter({
+            name: "Dino",
+            life: 1600,
+            strength: 2400,
+            defense: 600
+        });
+
+        expect(result).toBe(true);
+    });
+}); 
+```
+
+### Exercício 3
+
+```
+export const performAttack = (
+    attacker: Character,
+    defender: Character,
+    validator: (input: Character) => boolean
+    ) => {
+    if (!validator(attacker) || !validator(defender)) {
+      throw new Error("Invalid character");
+    }
+  
+    if (attacker.strength > defender.defense) {
+      defender.life -= attacker.strength - defender.defense;
+    }
+};
+```
+
+### Exercícios 4 e 5
+
+```
+import { performAttack } from "../src/performAttack";
+import { Character } from "../src/validateCharacter";
+
+describe("Testing performAttack", () => {
+    const validatorMockTrue = jest.fn(() => {
+      return true;
+    });
+  
+    const validatorMockFalse = jest.fn(() => {
+      return false;
+    });
+  
+    test("Should perform attack", () => {
+      const attacker: Character = {
+        name: "Harry Potter",
+        life: 1000,
+        strength: 600,
+        defense: 300
+      };
+  
+      const defender: Character = {
+        name: "Voldemort",
+        life: 1000,
+        strength: 500,
+        defense: 400
+      };
+  
+      performAttack(attacker, defender, validatorMockTrue as any);
+  
+      expect(defender.life).toEqual(800);
+      expect(validatorMockTrue).toBeCalled();
+      expect(validatorMockTrue).toBeCalledTimes(2);
+      expect(validatorMockTrue).toHaveReturnedTimes(2);
+    });
+  
+    test("Should return invalid character error", () => {
+      const attacker: Character = {
+        name: "Dino",
+        life: 1200,
+        strength: 200,
+        defense: 600
+      };
+  
+      const defender: Character = {
+        name: "Charge",
+        life: 1200,
+        strength: 400,
+        defense: 800
+      };
+      try {
+        performAttack(attacker, defender, validatorMockFalse as any);
+      } catch (error) {
+        expect(error.message).toBe("Invalid Character");
+        expect(validatorMockFalse).toBeCalled();
+        expect(validatorMockFalse).toBeCalledTimes(1);
+        expect(validatorMockFalse).toHaveReturnedTimes(1);
+      }
+    });
+```
 
 
 
