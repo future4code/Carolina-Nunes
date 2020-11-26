@@ -1,5 +1,5 @@
-import { CustomError } from "../errors/CustomError";
-import { User, stringToUserRole } from "../model/User";
+import { CustomError, NotFoundError, UnauthorizedError } from "../errors/CustomError";
+import { User, stringToUserRole, UserRole } from "../model/User";
 import userDatabase, { UserDatabase } from "../data/UserDatabase";
 import hashGenerator, { HashGenerator } from "../services/hashGenerator";
 import idGenerator, { IdGenerator } from "../services/idGenerator";
@@ -88,6 +88,52 @@ export class UserBusiness {
       } catch (error) {
          throw new CustomError(error.statusCode, error.message)
       }
+   }
+
+   public async getUserById(id: string) {
+      const user = await this.userDatabase.getUserById(id);
+  
+      if (!user) {
+        throw new NotFoundError("User not found");
+      }
+  
+      return {
+        id: user.getId(),
+        name: user.getName(),
+        email: user.getEmail(),
+        role: user.getRole(),
+      };
+   }
+
+   public async getAllUsers(role: UserRole) {
+      if (stringToUserRole(role) !== UserRole.ADMIN) {
+        throw new UnauthorizedError(
+          "You must be an admin to access this endpoint"
+        );
+      }
+      const users = await this.userDatabase.getAllUsers();
+  
+      return users.map((user) => ({
+        id: user.getId(),
+        name: user.getName(),
+        email: user.getEmail(),
+        role: user.getRole(),
+      }));
+   }
+
+   public async getProfile(id: string) {
+      const user = await this.userDatabase.getUserById(id);
+
+      if (!user) {
+        throw new NotFoundError("User not found");
+      }
+
+      return {
+        id: user.getId(),
+        name: user.getName(),
+        email: user.getEmail(),
+        role: user.getRole(),
+      };
    }
 }
 
